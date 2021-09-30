@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+{% include 'HEAD\HEAD.html' %}
+<body class="container">
+    <div id="app" class="container">
+        {% include 'BODY\HEADER\NAV\NAV.html' %}
+        <hr/>
+        <router-view></router-view>
+    </div>
+    {% include 'BODY\MAIN\GENRE\GENRE_TOP.html' %}
+    {% include 'BODY\MAIN\GENRE\GENRE_FORM.html' %}
+    {% include 'BODY\MAIN\TODO\TODO_TOP.html' %}
+    {% include 'BODY\MAIN\TODO\TODO_FORM.html' %}
+    <script src="{% static 'vue\vue.js' %}"></script>
+    <script src="{% static 'vue\vue-router.js' %}"></script>
+    <script src="{% static 'axios\axios.js' %}"></script>
+    <script type="module" src="{% static 'main.js' %}"></script>
+</body>
+
+</html>
