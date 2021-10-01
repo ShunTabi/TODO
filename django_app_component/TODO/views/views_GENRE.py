@@ -3,30 +3,39 @@ from django.http import HttpResponse, JsonResponse
 from . import views_SQL
 
 # 定義
-sql_1 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? LIMIT ?"
+sql_1 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
+sql_1_count = "SELECT COUNT(*) FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ?"
 sql_2 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? AND GENRE_ID = ?"
 sql_3 = "INSERT INTO T_GENRE(GENRE_NAME,GENRE_DATE) VALUES(?,?)"
 sql_4 = "UPDATE T_GENRE SET GENRE_NAME = ?,GENRE_DATE = ? WHERE GENRE_ID = ?"
 sql_limit = 9
 
-def GENRE_TOP(req):
+def GENRE_TOP(req,GENRE_PAGE):
     if(req.method == 'GET'):
         sql_params = (
-            0,sql_limit,
+            0,sql_limit,sql_limit*(GENRE_PAGE-1),
+        )
+        sql_params_count = (
+            0,
         )
         params = {
             "values": views_SQL.SQL_SELECT(sql_1, sql_params),
+            "values_COUNT": views_SQL.SQL_SELECT(sql_1_count, sql_params_count),
         }
         return JsonResponse(params)
 
 
-def GENRE_TOP_DEL(req):
+def GENRE_TOP_DEL(req,GENRE_PAGE):
     if(req.method == 'GET'):
         sql_params = (
-            1,sql_limit,
+            1,sql_limit,sql_limit*(GENRE_PAGE-1),
+        )
+        sql_params_count = (
+            1,
         )
         params = {
             "values": views_SQL.SQL_SELECT(sql_1, sql_params),
+            "values_COUNT": views_SQL.SQL_SELECT(sql_1_count, sql_params_count),
         }
         return JsonResponse(params)
 

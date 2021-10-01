@@ -1,6 +1,6 @@
 "use strict";
 const TODO_TOP = {
-    path: "/TODO_TOP",
+    path: "/TODO_TOP/:TODO_PAGE",
     component: {
         template: "#TODO_TOP",
         delimiters: ["[[", "]]"],
@@ -8,15 +8,20 @@ const TODO_TOP = {
             return {
                 values: null,
                 title: "作業一覧",
+                page_max: null,
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/TODO/TODO_TOP/")
+                axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP/${this.$route.params.TODO_PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        console.log(this.values)
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9) ;
                     })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/TODO_TOP/${parseInt(this.$route.params.TODO_PAGE) + tg}`);
+                this.axios_GET();
             },
         },
         created: function () {
@@ -124,7 +129,7 @@ const TODO_FORM_UPDATE = {
     }
 }
 const TODO_TOP_DEL = {
-    path: "/TODO_TOP_DEL",
+    path: "/TODO_TOP_DEL/:TODO_PAGE",
     component: {
         template: "#TODO_TOP",
         delimiters: ["[[", "]]"],
@@ -132,15 +137,20 @@ const TODO_TOP_DEL = {
             return {
                 values: null,
                 title: "作業一覧_削除",
+                page_max: null,
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/TODO/TODO_TOP_DEL/")
+                axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP_DEL/${this.$route.params.TODO_PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        console.log(this.values)
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
                     })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/TODO_TOP_DEL/${parseInt(this.$route.params.TODO_PAGE) + tg}`);
+                this.axios_GET();
             },
         },
         created: function () {

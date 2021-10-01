@@ -1,6 +1,6 @@
 import sqlite3
 
-DBNAME = "DATABASE.DB"
+DBNAME = "DATABASE_DEV.DB"
 
 
 def SQL_SELECT(sql, sql_params):

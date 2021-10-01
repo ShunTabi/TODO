@@ -1,6 +1,6 @@
 "use strict";
 const MEMO_TOP = {
-    path: "/MEMO_TOP",
+    path: "/MEMO_TOP/:MEMO_PAGE",
     component: {
         template: "#MEMO_TOP",
         delimiters: ["[[", "]]"],
@@ -8,15 +8,20 @@ const MEMO_TOP = {
             return {
                 values: null,
                 title: "メモ一覧",
+                page_max: null,
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/TODO/MEMO_TOP/")
+                axios.get(`http://192.168.10.100:8080/TODO/MEMO_TOP/${this.$route.params.MEMO_PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        console.log(this.values)
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
                     })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/MEMO_TOP/${parseInt(this.$route.params.MEMO_PAGE) + tg}`);
+                this.axios_GET();
             },
         },
         created: function () {
@@ -108,7 +113,7 @@ const MEMO_FORM_UPDATE = {
     }
 }
 const MEMO_TOP_DEL = {
-    path: "/MEMO_TOP_DEL",
+    path: "/MEMO_TOP_DEL/:MEMO_PAGE",
     component: {
         template: "#MEMO_TOP",
         delimiters: ["[[", "]]"],
@@ -116,18 +121,24 @@ const MEMO_TOP_DEL = {
             return {
                 values: null,
                 title: "メモ一覧_削除",
+                page_max: null,
             }
         },
-        // methods: {
-        //     axios_GET: function () {
-        //         axios.get("http://192.168.10.100:8080/TODO/TODO_TOP_DEL/")
-        //             .then(res => {
-        //                 this.values = res.data.values;
-        //                 console.log(this.values)
-        //             })
-        //     },
-        // },
+        methods: {
+            axios_GET: function () {
+                axios.get(`http://192.168.10.100:8080/TODO/MEMO_TOP_DEL/${this.$route.params.MEMO_PAGE}`)
+                    .then(res => {
+                        this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
+                    })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/MEMO_TOP_DEL/${parseInt(this.$route.params.MEMO_PAGE) + tg}`);
+                this.axios_GET();
+            },
+        },
         created: function () {
+            this.axios_GET();
         }
     }
 };

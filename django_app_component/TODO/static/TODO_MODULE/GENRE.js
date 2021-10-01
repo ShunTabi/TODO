@@ -1,6 +1,6 @@
 "use strict";
 const GENRE_TOP = {
-    path: "/GENRE_TOP",
+    path: "/GENRE_TOP/:GENRE_PAGE",
     component: {
         template: "#GENRE_TOP",
         delimiters: ["[[", "]]"],
@@ -8,14 +8,20 @@ const GENRE_TOP = {
             return {
                 values: null,
                 title: "種別一覧",
+                page_max: null,
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/TODO/GENRE_TOP/")
+                axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP/${this.$route.params.GENRE_PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
                     })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/GENRE_TOP/${parseInt(this.$route.params.GENRE_PAGE) + tg}`);
+                this.axios_GET();
             },
         },
         created: function () {
@@ -96,7 +102,7 @@ const GENRE_FORM_UPDATE = {
 };
 
 const GENRE_TOP_DEL = {
-    path: "/GENRE_TOP_DEL",
+    path: "/GENRE_TOP_DEL/:GENRE_PAGE",
     component: {
         template: "#GENRE_TOP",
         delimiters: ["[[", "]]"],
@@ -104,14 +110,20 @@ const GENRE_TOP_DEL = {
             return {
                 values: null,
                 title: "種別一覧_削除",
+                page_max: null,
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/TODO/GENRE_TOP_DEL/")
+                axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP_DEL/${this.$route.params.GENRE_PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
                     })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/GENRE_TOP_DEL/${parseInt(this.$route.params.GENRE_PAGE) + tg}`);
+                this.axios_GET();
             },
         },
         created: function () {

@@ -1,6 +1,17 @@
+{% load static %}
 <script type="text/x-template" id="TODO_TOP">
     <section>
         <h3>[[title]]</h3>
+        <nav>
+            <div v-if="page_max != 0">
+                <img v-if="this.$route.params.TODO_PAGE != 1" src="{% static 'icon\arrow-left-circle.svg' %}" width="25" height="25" @click="PAGE_BUTTON(-1)"/>
+                [[ this.$route.params.TODO_PAGE ]]/[[ page_max ]]
+                <img v-if="this.$route.params.TODO_PAGE != page_max" src="{% static 'icon\arrow-right-circle.svg' %}" width="25" height="25" @click="PAGE_BUTTON(1)"/>
+            </div>
+            <div v-else>
+                1/1
+            </div>
+        </nav>
         <table class="table">
             <thead>
                 <tr>
