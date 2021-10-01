@@ -94,5 +94,29 @@ const GENRE_FORM_UPDATE = {
         }
     }
 };
-const GENRE_DEL = {}
-export { GENRE_TOP, GENRE_FORM, GENRE_FORM_UPDATE, GENRE_DEL }
+
+const GENRE_TOP_DEL = {
+    path: "/GENRE_TOP_DEL",
+    component: {
+        template: "#GENRE_TOP",
+        delimiters: ["[[", "]]"],
+        data: function () {
+            return {
+                values: null,
+                title: "種別一覧_削除",
+            }
+        },
+        methods: {
+            axios_GET: function () {
+                axios.get("http://192.168.10.100:8080/TODO/GENRE_TOP_DEL/")
+                    .then(res => {
+                        this.values = res.data.values;
+                    })
+            },
+        },
+        created: function () {
+            this.axios_GET();
+        }
+    }
+};
+export { GENRE_TOP, GENRE_FORM, GENRE_FORM_UPDATE, GENRE_TOP_DEL }

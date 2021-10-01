@@ -123,6 +123,30 @@ const TODO_FORM_UPDATE = {
         }
     }
 }
-const TODO_DEL = {}
+const TODO_TOP_DEL = {
+    path: "/TODO_TOP_DEL",
+    component: {
+        template: "#TODO_TOP",
+        delimiters: ["[[", "]]"],
+        data: function () {
+            return {
+                values: null,
+                title: "作業一覧_削除",
+            }
+        },
+        methods: {
+            axios_GET: function () {
+                axios.get("http://192.168.10.100:8080/TODO/TODO_TOP_DEL/")
+                    .then(res => {
+                        this.values = res.data.values;
+                        console.log(this.values)
+                    })
+            },
+        },
+        created: function () {
+            this.axios_GET();
+        }
+    }
+};
 
-export { TODO_TOP, TODO_FORM, TODO_FORM_UPDATE, TODO_DEL }
+export { TODO_TOP, TODO_FORM, TODO_FORM_UPDATE, TODO_TOP_DEL }
