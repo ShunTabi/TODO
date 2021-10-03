@@ -2,16 +2,7 @@
 <script type="text/x-template" id="MEMO_TOP">
     <section>
         <h3>[[title]]</h3>
-        <nav>
-            <div v-if="page_max != 0">
-                <img v-if="this.$route.params.MEMO_PAGE != 1" src="{% static 'icon\arrow-left-circle.svg' %}" width="25" height="25" @click="PAGE_BUTTON(-1)"/>
-                [[ this.$route.params.MEMO_PAGE ]]/[[ page_max ]]
-                <img v-if="this.$route.params.MEMO_PAGE != page_max" src="{% static 'icon\arrow-right-circle.svg' %}" width="25" height="25" @click="PAGE_BUTTON(1)"/>
-            </div>
-            <div v-else>
-                1/1
-            </div>
-        </nav>
+        {% include 'BODY/MAIN/MEMO/MEMO_NAV.html' %}{% include 'BODY/MAIN/COM/PAGE_NAV.html' %}
         <table class="table">
             <thead>
                 <tr>
@@ -26,9 +17,11 @@
                 <tr v-for="i_1,index in values">
                     <td>[[ index+1 ]]</td>
                     <td>[[ i_1[1] ]]</td>
-                    <td>[[ i_1[2] ]]</td>
+                    <td><pre>[[ i_1[2] ]]</pre></td>
                     <td>[[ i_1[3] ]]</td>
-                    <td><router-link :to="`/MEMO_FORM/${i_1[0]}`"><button>更新</button></router-link></td>
+                    <td>
+                        <router-link :to="`/MEMO_FORM/${i_1[0]}`"><button>更新</button></router-link>
+                    </td>
                     <td><button>削除</button></td>
                 </tr>
             </tbody>

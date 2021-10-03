@@ -1,0 +1,10 @@
+{% load static %}
+<section>
+    <img src="{% static 'icon\list.svg' %}" v-if="!nav_menu" width="25" height="25" @click="nav_menu_if" class="button_cursor" />
+    <img src="{% static 'icon\x-circle.svg' %}" v-if="nav_menu" width="25" height="25" @click="nav_menu_if" class="button_cursor" />
+    <nav v-if="nav_menu" class="nav_menu animate__animated animate__lightSpeedInLeft">
+        <router-link to="/MEMO_TOP/1">メモ_一覧</router-link><br/>
+        <router-link to="/MEMO_FORM">メモ_フォーム</router-link><br/>
+        <router-link to="/MEMO_TOP_DEL/1">メモ_ゴミ箱</router-link><br/>
+    </nav>
+</section>

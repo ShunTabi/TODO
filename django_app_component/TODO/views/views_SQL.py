@@ -1,6 +1,7 @@
 import sqlite3
 
-DBNAME = "DATABASE_DEV.DB"
+DBNAME = "DATABASE.DB"
+sql_limit = 8
 
 
 def SQL_SELECT(sql, sql_params):

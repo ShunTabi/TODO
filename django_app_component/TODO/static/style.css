@@ -4,6 +4,30 @@ body {
     user-select: none;
     font-size: 13.5px;
     margin-top: 20px;
-    /* background-color: rgba(0,0,0,0.7); */
-    /* background-color: rgba(169,169,169,0.6); */
+}
+
+pre {
+    font-size: 13.5px;
+    font-family: "Yu Mincho";
+}
+
+.nav_menu {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    padding: 7px;
+    width: 100%;
+}
+
+.nav_menu a {
+    color: white;
+    padding: 5px;
+}
+
+.button_cursor {
+    cursor: pointer;
+}
+
+.page_nav_menu {
+    padding: 0px;
+    float: right;
 }

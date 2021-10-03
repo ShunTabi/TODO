@@ -1,31 +1,36 @@
 "use strict";
 const TODO_TOP = {
-    path: "/TODO_TOP/:TODO_PAGE",
+    path: "/TODO_TOP/:PAGE",
     component: {
         template: "#TODO_TOP",
         delimiters: ["[[", "]]"],
-        data: function () {
+        data: function() {
             return {
                 values: null,
                 title: "作業一覧",
                 page_max: null,
+                nav_menu: false,
             }
         },
         methods: {
-            axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP/${this.$route.params.TODO_PAGE}`)
+            axios_GET: function() {
+                axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / 9) ;
+                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
                     })
             },
-            PAGE_BUTTON: function (tg) {
-                this.$router.push(`/TODO_TOP/${parseInt(this.$route.params.TODO_PAGE) + tg}`);
+            PAGE_BUTTON: function(tg) {
+                this.$router.push(`/TODO_TOP/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
+            nav_menu_if: function() {
+                this.nav_menu = !this.nav_menu;
+            }
         },
-        created: function () {
+        created: function() {
             this.axios_GET();
+            this.nav_menu = false;
         }
     }
 };
@@ -34,7 +39,7 @@ const TODO_FORM = {
     component: {
         template: "#TODO_FORM",
         delimiters: ["[[", "]]"],
-        data: function () {
+        data: function() {
             return {
                 TODO_ID: null,
                 TODO_NAME: null,
@@ -42,14 +47,18 @@ const TODO_FORM = {
                 PRIOR_NAME: null,
                 TODO_STARTDATE: null,
                 TODO_ENDDATE: null,
-                values_GENRE: [[]],
-                values_PRIOR: [[]],
+                values_GENRE: [
+                    []
+                ],
+                values_PRIOR: [
+                    []
+                ],
                 button_name: "登録",
                 title: "作業フォーム",
             }
         },
         methods: {
-            axios_GET: function () {
+            axios_GET: function() {
                 axios.get("http://192.168.10.100:8080/COM/NOW_TIME/")
                     .then(res => {
                         this.TODO_STARTDATE = res.data.values;
@@ -61,7 +70,7 @@ const TODO_FORM = {
                         this.values_PRIOR = res.data.values_PRIOR;
                     });
             },
-            axios_POST: function () {
+            axios_POST: function() {
                 const params = new URLSearchParams();
                 params.append("TODO_NAME", this.TODO_NAME);
                 params.append("GENRE_NAME", this.GENRE_NAME);
@@ -70,10 +79,10 @@ const TODO_FORM = {
                 params.append("TODO_ENDDATE", this.TODO_ENDDATE);
                 console.log(params);
                 axios.post(`http://192.168.10.100:8080/TODO/TODO_FORM/`, params)
-                    .then(res => { })
+                    .then(res => {})
             },
         },
-        created: function () {
+        created: function() {
             this.axios_GET();
         }
     }
@@ -83,7 +92,7 @@ const TODO_FORM_UPDATE = {
     component: {
         template: "#TODO_FORM",
         delimiters: ["[[", "]]"],
-        data: function () {
+        data: function() {
             return {
                 TODO_ID: null,
                 TODO_NAME: null,
@@ -91,14 +100,18 @@ const TODO_FORM_UPDATE = {
                 PRIOR_NAME: null,
                 TODO_STARTDATE: null,
                 TODO_ENDDATE: null,
-                values_GENRE: [[]],
-                values_PRIOR: [[]],
+                values_GENRE: [
+                    []
+                ],
+                values_PRIOR: [
+                    []
+                ],
                 button_name: "更新",
                 title: "作業フォーム",
             }
         },
         methods: {
-            axios_GET: function () {
+            axios_GET: function() {
                 axios.get(`http://192.168.10.100:8080/TODO/TODO_FORM/${this.$route.params.TODO_ID}`)
                     .then(res => {
                         this.TODO_ID = res.data.values[0][0];
@@ -111,7 +124,7 @@ const TODO_FORM_UPDATE = {
                         this.values_PRIOR = res.data.values_PRIOR;
                     })
             },
-            axios_POST: function () {
+            axios_POST: function() {
                 const params = new URLSearchParams();
                 params.append("TODO_ID", this.TODO_ID);
                 params.append("TODO_NAME", this.TODO_NAME);
@@ -120,40 +133,44 @@ const TODO_FORM_UPDATE = {
                 params.append("TODO_STARTDATE", this.TODO_STARTDATE);
                 params.append("TODO_ENDDATE", this.TODO_ENDDATE);
                 axios.post(`http://192.168.10.100:8080/TODO/TODO_FORM/${this.$route.params.TODO_ID}`, params)
-                    .then(res => { })
+                    .then(res => {})
             },
         },
-        created: function () {
+        created: function() {
             this.axios_GET();
         }
     }
 }
 const TODO_TOP_DEL = {
-    path: "/TODO_TOP_DEL/:TODO_PAGE",
+    path: "/TODO_TOP_DEL/:PAGE",
     component: {
         template: "#TODO_TOP",
         delimiters: ["[[", "]]"],
-        data: function () {
+        data: function() {
             return {
                 values: null,
                 title: "作業一覧_削除",
                 page_max: null,
+                nav_menu: false,
             }
         },
         methods: {
-            axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP_DEL/${this.$route.params.TODO_PAGE}`)
+            axios_GET: function() {
+                axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / 9);
                     })
             },
-            PAGE_BUTTON: function (tg) {
-                this.$router.push(`/TODO_TOP_DEL/${parseInt(this.$route.params.TODO_PAGE) + tg}`);
+            PAGE_BUTTON: function(tg) {
+                this.$router.push(`/TODO_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
+            nav_menu_if: function() {
+                this.nav_menu = !this.nav_menu;
+            }
         },
-        created: function () {
+        created: function() {
             this.axios_GET();
         }
     }
