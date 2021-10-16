@@ -1,11 +1,9 @@
 import sqlite3
-
-DBNAME = "DATABASE.DB"
-sql_limit = 8
+from . import views_conf
 
 
 def SQL_SELECT(sql, sql_params):
-    conn = sqlite3.connect(DBNAME)
+    conn = sqlite3.connect(views_conf.DBNAME)
     cur = conn.cursor()
     cur.execute(sql, sql_params)
     output = cur.fetchall()
@@ -15,7 +13,7 @@ def SQL_SELECT(sql, sql_params):
 
 
 def SQL_DCL(sql, sql_params):
-    conn = sqlite3.connect(DBNAME)
+    conn = sqlite3.connect(views_conf.DBNAME)
     cur = conn.cursor()
     cur.execute(sql, sql_params)
     cur.close()

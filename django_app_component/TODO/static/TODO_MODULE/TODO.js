@@ -1,4 +1,7 @@
 "use strict";
+//インポート
+import { sql_limit } from "./conf.js";
+//コンポーネント
 const TODO_TOP = {
     path: "/TODO_TOP/:PAGE",
     component: {
@@ -17,7 +20,7 @@ const TODO_TOP = {
                 axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
+                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             PAGE_BUTTON: function(tg) {
@@ -159,7 +162,7 @@ const TODO_TOP_DEL = {
                 axios.get(`http://192.168.10.100:8080/TODO/TODO_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / 9);
+                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             PAGE_BUTTON: function(tg) {

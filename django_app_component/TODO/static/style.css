@@ -14,13 +14,13 @@ pre {
 .nav_menu {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
-    padding: 7px;
+    padding: 20px 15px;
     width: 100%;
+    margin-top: 25px;
 }
 
 .nav_menu a {
     color: white;
-    padding: 5px;
 }
 
 .button_cursor {
@@ -30,4 +30,8 @@ pre {
 .page_nav_menu {
     padding: 0px;
     float: right;
+}
+
+.nav_menu_button {
+    float: left;
 }

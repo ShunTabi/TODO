@@ -1,7 +1,6 @@
 {% load static %}
 <section>
-    <img src="{% static 'icon\list.svg' %}" v-if="!nav_menu" width="25" height="25" @click="nav_menu_if" class="button_cursor" />
-    <img src="{% static 'icon\x-circle.svg' %}" v-if="nav_menu" width="25" height="25" @click="nav_menu_if" class="button_cursor" />
+    {% include 'BODY/MAIN/COM/NAV_MENU_BUTTON.html' %}
     <nav v-if="nav_menu" class="nav_menu animate__animated animate__lightSpeedInLeft">
         <router-link to="/GENRE_TOP/1">種別_一覧</router-link><br/>
         <router-link to="/GENRE_FORM">種別_フォーム</router-link><br/>
