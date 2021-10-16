@@ -60,8 +60,8 @@ def TODO_DETAIL_FORM(req):
     if(req.method == "POST"):
         sql_params = (
             req.POST["TODO_HEADER_NAME"],
-            req.POST["PRIOR_NAME"],
             req.POST["TODO_DETAIL_NAME"],
+            req.POST["PRIOR_NAME"],
             req.POST["TODO_DETAIL_STARTDATE"],
             req.POST["TODO_DETAIL_ENDDATE"],
         )
