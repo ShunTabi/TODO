@@ -21,20 +21,7 @@
                     <td>日付</td>
                     <td><input type="text" v-model="TODO_HEADER_DATE"></td>
                 </tr>
-                <!-- <tr>
-                    <td>優先度</td>
-                    <td><select v-model="PRIOR_NAME">
-                        <option v-for="i_PRIOR in values_PRIOR">[[ i_PRIOR[0] ]]</option>
-                    </select></td>
-                </tr> -->
-                <!-- <tr>
-                    <td>開始日</td>
-                    <td><input type="text" v-model="TODO_HEADER_STARTDATE"></td>
-                </tr>
-                <tr>
-                    <td>納期</td>
-                    <td><input type="text" v-model="TODO_HEADER_ENDDATE"></td>
-                </tr> -->
+                {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
                 <tr>
                     <td></td>
                     <td><button @click="axios_POST">[[ button_name ]]</button></td>

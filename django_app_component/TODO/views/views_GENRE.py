@@ -3,11 +3,11 @@ from django.http import HttpResponse, JsonResponse
 from . import views_SQL, views_conf
 
 # 定義
-sql_1 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
+sql_1 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE,GENRE_VISIBLESTATUS FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
 sql_1_count = "SELECT COUNT(*) FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ?"
-sql_2 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? AND GENRE_ID = ?"
-sql_3 = "INSERT INTO T_GENRE(GENRE_NAME,GENRE_DATE) VALUES(?,?)"
-sql_4 = "UPDATE T_GENRE SET GENRE_NAME = ?,GENRE_DATE = ? WHERE GENRE_ID = ?"
+sql_2 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE,GENRE_VISIBLESTATUS FROM T_GENRE WHERE GENRE_ID = ?"
+sql_3 = "INSERT INTO T_GENRE(GENRE_NAME,GENRE_DATE,GENRE_VISIBLESTATUS) VALUES(?,?,?)"
+sql_4 = "UPDATE T_GENRE SET GENRE_NAME = ?,GENRE_DATE = ?,GENRE_VISIBLESTATUS = ? WHERE GENRE_ID = ?"
 sql_5 = "UPDATE T_GENRE SET GENRE_VISIBLESTATUS = ? WHERE GENRE_ID = ?"
 sql_limit = views_conf.sql_limit
 
@@ -47,6 +47,7 @@ def GENRE_FORM(req):
         sql_params = (
             req.POST["GENRE_NAME"],
             req.POST["GENRE_DATE"],
+            req.POST["GENRE_VISIBLESTATUS"],
         )
         params = {
             "values": views_SQL.SQL_DCL(sql_3, sql_params),
@@ -57,7 +58,7 @@ def GENRE_FORM(req):
 def GENRE_FORM_UPDATE(req, GENRE_ID):
     if(req.method == "GET"):
         sql_params = (
-            0, GENRE_ID,
+            GENRE_ID,
         )
         params = {
             "values": views_SQL.SQL_SELECT(sql_2, sql_params),
@@ -67,6 +68,7 @@ def GENRE_FORM_UPDATE(req, GENRE_ID):
         sql_params = (
             req.POST["GENRE_NAME"],
             req.POST["GENRE_DATE"],
+            req.POST["GENRE_VISIBLESTATUS"],
             req.POST["GENRE_ID"],
         )
         params = {

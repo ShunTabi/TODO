@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { sql_limit } from "./conf.js";
+import { sql_limit,url } from "./conf.js";
 //コンポーネント
 const TODO_HEADER_TOP = {
     path: "/TODO_HEADER_TOP/:PAGE",
@@ -17,14 +17,14 @@ const TODO_HEADER_TOP = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_HEADER_TOP/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/TODO_HEADER_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             axios_DEL: function (tg) {
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_HEADER_DEL/${tg}`)
+                axios.post(`${url}TODO/TODO_HEADER_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
                     })
@@ -58,14 +58,14 @@ const TODO_HEADER_TOP_DEL = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_HEADER_TOP_DEL/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/TODO_HEADER_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             axios_DEL: function (tg) {
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_HEADER_DEL/${tg}`)
+                axios.post(`${url}TODO/TODO_HEADER_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
                     })
@@ -95,6 +95,7 @@ const TODO_HEADER_FORM = {
                 GENRE_NAME: null,
                 PRIOR_NAME: null,
                 TODO_HEADER_DATE: null,
+                VISIBLESTATUS: 0,
                 values_GENRE: [
                     []
                 ],
@@ -107,11 +108,11 @@ const TODO_HEADER_FORM = {
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/COM/NOW_TIME/")
+                axios.get(`${url}COM/NOW_TIME/`)
                     .then(res => {
                         this.TODO_HEADER_DATE = res.data.values;
                     });
-                axios.get("http://192.168.10.100:8080/TODO/TODO_HEADER_FORM/")
+                axios.get(`${url}TODO/TODO_HEADER_FORM/`)
                     .then(res => {
                         this.values_GENRE = res.data.values_GENRE;
                     });
@@ -121,7 +122,8 @@ const TODO_HEADER_FORM = {
                 params.append("TODO_HEADER_NAME", this.TODO_HEADER_NAME);
                 params.append("GENRE_NAME", this.GENRE_NAME);
                 params.append("TODO_HEADER_DATE", this.TODO_HEADER_DATE);
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_HEADER_FORM/`, params)
+                params.append("TODO_HEADER_VISIBLESTATUS", this.VISIBLESTATUS);
+                axios.post(`${url}TODO/TODO_HEADER_FORM/`, params)
                     .then(res => { })
             },
         },
@@ -141,6 +143,7 @@ const TODO_HEADER_FORM_UPDATE = {
                 TODO_HEADER_NAME: null,
                 GENRE_NAME: null,
                 TODO_HEADER_DATE: null,
+                VISIBLESTATUS: null,
                 values_GENRE: [
                     []
                 ],
@@ -150,12 +153,13 @@ const TODO_HEADER_FORM_UPDATE = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_HEADER_FORM/${this.$route.params.TODO_HEADER_ID}`)
+                axios.get(`${url}TODO/TODO_HEADER_FORM/${this.$route.params.TODO_HEADER_ID}`)
                     .then(res => {
                         this.TODO_HEADER_ID = res.data.values[0][0];
                         this.TODO_HEADER_NAME = res.data.values[0][1];
                         this.GENRE_NAME = res.data.values[0][2];
                         this.TODO_HEADER_DATE = res.data.values[0][3];
+                        this.VISIBLESTATUS = res.data.values[0][4];
                         this.values_GENRE = res.data.values_GENRE;
                         console.log(res);
                     })
@@ -166,7 +170,8 @@ const TODO_HEADER_FORM_UPDATE = {
                 params.append("TODO_HEADER_NAME", this.TODO_HEADER_NAME);
                 params.append("GENRE_NAME", this.GENRE_NAME);
                 params.append("TODO_HEADER_DATE", this.TODO_HEADER_DATE);
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_HEADER_FORM/${this.$route.params.TODO_HEADER_ID}`, params)
+                params.append("TODO_HEADER_VISIBLESTATUS", this.VISIBLESTATUS);
+                axios.post(`${url}TODO/TODO_HEADER_FORM/${this.$route.params.TODO_HEADER_ID}`, params)
                     .then(res => { })
             },
         },

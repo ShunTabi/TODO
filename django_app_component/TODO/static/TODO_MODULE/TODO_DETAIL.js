@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { sql_limit } from "./conf.js";
+import { sql_limit,url } from "./conf.js";
 //コンポーネント
 const TODO_DETAIL_TOP = {
     path: "/TODO_DETAIL_TOP/:PAGE",
@@ -17,14 +17,14 @@ const TODO_DETAIL_TOP = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_DETAIL_TOP/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/TODO_DETAIL_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             axios_DEL: function (tg) {
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_DETAIL_DEL/${tg}`)
+                axios.post(`${url}TODO/TODO_DETAIL_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
                     })
@@ -58,14 +58,14 @@ const TODO_DETAIL_TOP_DEL = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             axios_DEL: function (tg) {
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_DETAIL_DEL/${tg}`)
+                axios.post(`${url}TODO/TODO_DETAIL_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
                     })
@@ -96,6 +96,7 @@ const TODO_DETAIL_FORM = {
                 TODO_HEADER_NAME: null,
                 TODO_DETAIL_STARTDATE: null,
                 TODO_DETAIL_ENDDATE: null,
+                VISIBLESTATUS: 0,
                 values_PRIOR: [
                     []
                 ],
@@ -108,15 +109,16 @@ const TODO_DETAIL_FORM = {
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/COM/NOW_TIME/")
+                axios.get(`${url}COM/NOW_TIME/`)
                     .then(res => {
                         this.TODO_DETAIL_STARTDATE = res.data.values;
                         this.TODO_DETAIL_ENDDATE = res.data.values;
                     });
-                axios.get("http://192.168.10.100:8080/TODO/TODO_DETAIL_FORM/")
+                axios.get(`${url}TODO/TODO_DETAIL_FORM/`)
                     .then(res => {
                         this.values_PRIOR = res.data.values_PRIOR;
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        
                     });
             },
             axios_POST: function () {
@@ -126,8 +128,9 @@ const TODO_DETAIL_FORM = {
                 params.append("PRIOR_NAME", this.PRIOR_NAME);
                 params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
+                params.append("TODO_DETAIL_VISIBLESTATUS", this.VISIBLESTATUS);
                 console.log(params);
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_DETAIL_FORM/`, params)
+                axios.post(`${url}TODO/TODO_DETAIL_FORM/`, params)
                     .then(res => { })
             },
         },
@@ -149,6 +152,7 @@ const TODO_DETAIL_FORM_UPDATE = {
                 TODO_HEADER_NAME: null,
                 TODO_DETAIL_STARTDATE: null,
                 TODO_DETAIL_ENDDATE: null,
+                VISIBLESTATUS: null,
                 values_PRIOR: [
                     []
                 ],
@@ -161,7 +165,7 @@ const TODO_DETAIL_FORM_UPDATE = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`)
+                axios.get(`${url}TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`)
                     .then(res => {
                         this.TODO_DETAIL_ID = res.data.values[0][0];
                         this.TODO_HEADER_NAME = res.data.values[0][1];
@@ -169,8 +173,10 @@ const TODO_DETAIL_FORM_UPDATE = {
                         this.PRIOR_NAME = res.data.values[0][3];
                         this.TODO_DETAIL_STARTDATE = res.data.values[0][4];
                         this.TODO_DETAIL_ENDDATE = res.data.values[0][5];
+                        this.VISIBLESTATUS = res.data.values[0][6];
                         this.values_PRIOR = res.data.values_PRIOR;
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        console.log(res);
                     })
             },
             axios_POST: function () {
@@ -180,7 +186,8 @@ const TODO_DETAIL_FORM_UPDATE = {
                 params.append("PRIOR_NAME", this.PRIOR_NAME);
                 params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
-                axios.post(`http://192.168.10.100:8080/TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`, params)
+                params.append("TODO_DETAIL_VISIBLESTATUS", this.TODO_DETAIL_VISIBLESTATUS);
+                axios.post(`${url}TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`, params)
                     .then(res => { })
             },
         },

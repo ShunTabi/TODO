@@ -1,3 +1,4 @@
+{% load static %}
 <script type="text/x-template" id="TODO_DETAIL_FORM">
     <section>
         <h4>[[title]]</h4>
@@ -31,6 +32,7 @@
                     <td>期日</td>
                     <td><input type="text" v-model="TODO_DETAIL_ENDDATE"></td>
                 </tr>
+                {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
                 <tr>
                     <td></td>
                     <td><button @click="axios_POST">[[ button_name ]]</button></td>

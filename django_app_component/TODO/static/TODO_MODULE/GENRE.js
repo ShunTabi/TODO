@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { sql_limit } from "./conf.js";
+import { sql_limit, url } from "./conf.js";
 //コンポーネント
 const GENRE_TOP = {
     path: "/GENRE_TOP/:PAGE",
@@ -17,14 +17,14 @@ const GENRE_TOP = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/GENRE_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             axios_DEL: function (tg) {
-                axios.post(`http://192.168.10.100:8080/TODO/GENRE_DEL/${tg}`)
+                axios.post(`${url}TODO/GENRE_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
                     })
@@ -59,14 +59,14 @@ const GENRE_TOP_DEL = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP_DEL/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/GENRE_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
             axios_DEL: function (tg) {
-                axios.post(`http://192.168.10.100:8080/TODO/GENRE_DEL/${tg}`)
+                axios.post(`${url}TODO/GENRE_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
                     })
@@ -95,13 +95,14 @@ const GENRE_FORM = {
                 GENRE_ID: null,
                 GENRE_NAME: null,
                 GENRE_DATE: null,
+                VISIBLESTATUS: 0,
                 button_name: "登録",
                 title: "種別フォーム",
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get("http://192.168.10.100:8080/COM/NOW_TIME/")
+                axios.get(`${url}COM/NOW_TIME/`)
                     .then(res => {
                         this.GENRE_DATE = res.data.values;
                     });
@@ -110,7 +111,8 @@ const GENRE_FORM = {
                 const params = new URLSearchParams();
                 params.append("GENRE_NAME", this.GENRE_NAME);
                 params.append("GENRE_DATE", this.GENRE_DATE);
-                axios.post(`http://192.168.10.100:8080/TODO/GENRE_FORM/`, params)
+                params.append("GENRE_VISIBLESTATUS", this.VISIBLESTATUS);
+                axios.post(`${url}TODO/GENRE_FORM/`, params)
                     .then(res => { })
             },
         },
@@ -129,17 +131,19 @@ const GENRE_FORM_UPDATE = {
                 GENRE_ID: null,
                 GENRE_NAME: null,
                 GENRE_DATE: null,
+                VISIBLESTATUS: null,
                 button_name: "更新",
                 title: "種別フォーム",
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`)
+                axios.get(`${url}TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`)
                     .then(res => {
                         this.GENRE_ID = res.data.values[0][0];
                         this.GENRE_NAME = res.data.values[0][1];
                         this.GENRE_DATE = res.data.values[0][2];
+                        this.VISIBLESTATUS = res.data.values[0][3];
                     })
             },
             axios_POST: function () {
@@ -147,7 +151,8 @@ const GENRE_FORM_UPDATE = {
                 params.append("GENRE_ID", this.GENRE_ID);
                 params.append("GENRE_NAME", this.GENRE_NAME);
                 params.append("GENRE_DATE", this.GENRE_DATE);
-                axios.post(`http://192.168.10.100:8080/TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`, params)
+                params.append("GENRE_VISIBLESTATUS", this.VISIBLESTATUS);
+                axios.post(`${url}TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`, params)
                     .then(res => { })
             },
         },
