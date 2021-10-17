@@ -7,7 +7,7 @@ const GENRE_TOP = {
     component: {
         template: "#GENRE_TOP",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 values: null,
                 title: "種別一覧",
@@ -16,22 +16,70 @@ const GENRE_TOP = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
-            PAGE_BUTTON: function(tg) {
+            axios_DEL: function (tg) {
+                axios.post(`http://192.168.10.100:8080/TODO/GENRE_DEL/${tg}`)
+                    .then(res => {
+                        this.axios_GET();
+                    })
+            },
+            PAGE_BUTTON: function (tg) {
                 this.$router.push(`/GENRE_TOP/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
-            nav_menu_if: function() {
+            nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
             }
         },
-        created: function() {
+        created: function () {
+            this.axios_GET();
+            this.nav_menu = false;
+        }
+    }
+};
+
+const GENRE_TOP_DEL = {
+    path: "/GENRE_TOP_DEL/:PAGE",
+    component: {
+        template: "#GENRE_TOP",
+        delimiters: ["[[", "]]"],
+        data: function () {
+            return {
+                values: null,
+                title: "種別一覧_削除",
+                page_max: null,
+                nav_menu: false,
+            }
+        },
+        methods: {
+            axios_GET: function () {
+                axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP_DEL/${this.$route.params.PAGE}`)
+                    .then(res => {
+                        this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                    })
+            },
+            axios_DEL: function (tg) {
+                axios.post(`http://192.168.10.100:8080/TODO/GENRE_DEL/${tg}`)
+                    .then(res => {
+                        this.axios_GET();
+                    })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/GENRE_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
+                this.axios_GET();
+            },
+            nav_menu_if: function () {
+                this.nav_menu = !this.nav_menu;
+            }
+        },
+        created: function () {
             this.axios_GET();
             this.nav_menu = false;
         }
@@ -42,7 +90,7 @@ const GENRE_FORM = {
     component: {
         template: "#GENRE_FORM",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 GENRE_ID: null,
                 GENRE_NAME: null,
@@ -52,21 +100,21 @@ const GENRE_FORM = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get("http://192.168.10.100:8080/COM/NOW_TIME/")
                     .then(res => {
                         this.GENRE_DATE = res.data.values;
                     });
             },
-            axios_POST: function() {
+            axios_POST: function () {
                 const params = new URLSearchParams();
                 params.append("GENRE_NAME", this.GENRE_NAME);
                 params.append("GENRE_DATE", this.GENRE_DATE);
                 axios.post(`http://192.168.10.100:8080/TODO/GENRE_FORM/`, params)
-                    .then(res => {})
+                    .then(res => { })
             },
         },
-        created: function() {
+        created: function () {
             this.axios_GET();
         }
     }
@@ -76,7 +124,7 @@ const GENRE_FORM_UPDATE = {
     component: {
         template: "#GENRE_FORM",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 GENRE_ID: null,
                 GENRE_NAME: null,
@@ -86,7 +134,7 @@ const GENRE_FORM_UPDATE = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get(`http://192.168.10.100:8080/TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`)
                     .then(res => {
                         this.GENRE_ID = res.data.values[0][0];
@@ -94,53 +142,17 @@ const GENRE_FORM_UPDATE = {
                         this.GENRE_DATE = res.data.values[0][2];
                     })
             },
-            axios_POST: function() {
+            axios_POST: function () {
                 const params = new URLSearchParams();
                 params.append("GENRE_ID", this.GENRE_ID);
                 params.append("GENRE_NAME", this.GENRE_NAME);
                 params.append("GENRE_DATE", this.GENRE_DATE);
                 axios.post(`http://192.168.10.100:8080/TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`, params)
-                    .then(res => {})
+                    .then(res => { })
             },
         },
-        created: function() {
+        created: function () {
             this.axios_GET();
-        }
-    }
-};
-
-const GENRE_TOP_DEL = {
-    path: "/GENRE_TOP_DEL/:PAGE",
-    component: {
-        template: "#GENRE_TOP",
-        delimiters: ["[[", "]]"],
-        data: function() {
-            return {
-                values: null,
-                title: "種別一覧_削除",
-                page_max: null,
-                nav_menu: false,
-            }
-        },
-        methods: {
-            axios_GET: function() {
-                axios.get(`http://192.168.10.100:8080/TODO/GENRE_TOP_DEL/${this.$route.params.PAGE}`)
-                    .then(res => {
-                        this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
-                    })
-            },
-            PAGE_BUTTON: function(tg) {
-                this.$router.push(`/GENRE_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
-                this.axios_GET();
-            },
-            nav_menu_if: function() {
-                this.nav_menu = !this.nav_menu;
-            }
-        },
-        created: function() {
-            this.axios_GET();
-            this.nav_menu = false;
         }
     }
 };

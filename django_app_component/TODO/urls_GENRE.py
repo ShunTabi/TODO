@@ -23,3 +23,8 @@ GENRE_TOP_DEL = path(
     views_GENRE.GENRE_TOP_DEL,
     name="GENRE_TOP_DEL"
 )
+GENRE_DEL = path(
+    'GENRE_DEL/<int:GENRE_ID>',
+    views_GENRE.GENRE_DEL,
+    name="GENRE_DEL"
+)

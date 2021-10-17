@@ -28,7 +28,7 @@
                     <td>
                         <router-link :to="`/TODO_DETAIL_FORM/${i_1[0]}`"><button>更新</button></router-link>
                     </td>
-                    <td><button>削除</button></td>
+                    <td><button @click="axios_DEL( i_1[0] )">削除</button></td>
                 </tr>
             </tbody>
         </table>

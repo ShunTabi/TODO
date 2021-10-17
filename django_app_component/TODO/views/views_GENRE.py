@@ -8,6 +8,7 @@ sql_1_count = "SELECT COUNT(*) FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ?"
 sql_2 = "SELECT GENRE_ID,GENRE_NAME,GENRE_DATE FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ? AND GENRE_ID = ?"
 sql_3 = "INSERT INTO T_GENRE(GENRE_NAME,GENRE_DATE) VALUES(?,?)"
 sql_4 = "UPDATE T_GENRE SET GENRE_NAME = ?,GENRE_DATE = ? WHERE GENRE_ID = ?"
+sql_5 = "UPDATE T_GENRE SET GENRE_VISIBLESTATUS = ? WHERE GENRE_ID = ?"
 sql_limit = views_conf.sql_limit
 
 
@@ -70,5 +71,16 @@ def GENRE_FORM_UPDATE(req, GENRE_ID):
         )
         params = {
             "values": views_SQL.SQL_DCL(sql_4, sql_params),
+        }
+        return JsonResponse(params)
+
+
+def GENRE_DEL(req, GENRE_ID):
+    if(req.method == 'POST'):
+        sql_params = (
+             1, GENRE_ID,
+        )
+        params = {
+            "values": views_SQL.SQL_DCL(sql_5, sql_params),
         }
         return JsonResponse(params)

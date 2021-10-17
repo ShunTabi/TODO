@@ -23,6 +23,12 @@ const TODO_DETAIL_TOP = {
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                     })
             },
+            axios_DEL: function (tg) {
+                axios.post(`http://192.168.10.100:8080/TODO/TODO_DETAIL_DEL/${tg}`)
+                    .then(res => {
+                        this.axios_GET();
+                    })
+            },
             PAGE_BUTTON: function (tg) {
                 this.$router.push(`/TODO_DETAIL_TOP/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
@@ -34,6 +40,46 @@ const TODO_DETAIL_TOP = {
         created: function () {
             this.axios_GET();
             this.nav_menu = false;
+        }
+    }
+};
+const TODO_DETAIL_TOP_DEL = {
+    path: "/TODO_DETAIL_TOP_DEL/:PAGE",
+    component: {
+        template: "#TODO_DETAIL_TOP",
+        delimiters: ["[[", "]]"],
+        data: function () {
+            return {
+                values: null,
+                title: "課題一覧_削除",
+                page_max: null,
+                nav_menu: false,
+            }
+        },
+        methods: {
+            axios_GET: function () {
+                axios.get(`http://192.168.10.100:8080/TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`)
+                    .then(res => {
+                        this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                    })
+            },
+            axios_DEL: function (tg) {
+                axios.post(`http://192.168.10.100:8080/TODO/TODO_DETAIL_DEL/${tg}`)
+                    .then(res => {
+                        this.axios_GET();
+                    })
+            },
+            PAGE_BUTTON: function (tg) {
+                this.$router.push(`/TODO_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
+                this.axios_GET();
+            },
+            nav_menu_if: function () {
+                this.nav_menu = !this.nav_menu;
+            }
+        },
+        created: function () {
+            this.axios_GET();
         }
     }
 };
@@ -143,39 +189,5 @@ const TODO_DETAIL_FORM_UPDATE = {
         }
     }
 }
-const TODO_DETAIL_TOP_DEL = {
-    path: "/TODO_DETAIL_TOP_DEL/:PAGE",
-    component: {
-        template: "#TODO_DETAIL_TOP",
-        delimiters: ["[[", "]]"],
-        data: function () {
-            return {
-                values: null,
-                title: "課題一覧_削除",
-                page_max: null,
-                nav_menu: false,
-            }
-        },
-        methods: {
-            axios_GET: function () {
-                axios.get(`http://192.168.10.100:8080/TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`)
-                    .then(res => {
-                        this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
-                    })
-            },
-            PAGE_BUTTON: function (tg) {
-                this.$router.push(`/TODO_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
-                this.axios_GET();
-            },
-            nav_menu_if: function () {
-                this.nav_menu = !this.nav_menu;
-            }
-        },
-        created: function () {
-            this.axios_GET();
-        }
-    }
-};
 
 export { TODO_DETAIL_TOP, TODO_DETAIL_FORM, TODO_DETAIL_FORM_UPDATE, TODO_DETAIL_TOP_DEL, }
