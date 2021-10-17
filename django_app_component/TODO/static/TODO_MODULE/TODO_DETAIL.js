@@ -186,7 +186,7 @@ const TODO_DETAIL_FORM_UPDATE = {
                 params.append("PRIOR_NAME", this.PRIOR_NAME);
                 params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
-                params.append("TODO_DETAIL_VISIBLESTATUS", this.TODO_DETAIL_VISIBLESTATUS);
+                params.append("TODO_DETAIL_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`, params)
                     .then(res => { })
             },
