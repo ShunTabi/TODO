@@ -4,6 +4,7 @@ from . import urls_GENRE, urls_MAIN, urls_TODO_HEADER, urls_TODO_DETAIL, urls_ME
 urlpatterns = [
     # メイン
     urls_MAIN.index,
+    urls_MAIN.Django_works,
     # 種別
     urls_GENRE.GENRE_TOP,
     urls_GENRE.GENRE_FORM,

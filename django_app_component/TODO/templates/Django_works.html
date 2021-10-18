@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django works!</title>
+</head>
+
+<body>
+    <h1>Django works!</h1>
+    <script>
+        "use strict";
+        const start_url = 'http://192.168.10.100:8080/TODO/#/TODO_HEADER_TOP/1'
+        const start_WindowName = '_blank'
+        const start_option = "menubar=0,toolbar=0,location=0,status=0,resizable=0,left=0,top=0,width=1014,height=800"
+        const openWindow = function (url, WindowName, option) {
+            window.open(url, WindowName, option);
+            window.opener = self;
+            window.close();
+        }
+        openWindow(start_url, start_WindowName, start_option);
+    </script>
+</body>
+
+</html>

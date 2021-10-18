@@ -66,7 +66,7 @@ WSGI_APPLICATION = 'django_app_component.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'DATABASE.db',
+        'NAME': BASE_DIR / 'DATABASE_WK.db',
     }
 }
 
@@ -93,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
 TIME_ZONE = 'UTC'
 

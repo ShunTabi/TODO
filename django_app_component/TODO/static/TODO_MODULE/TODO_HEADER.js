@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { sql_limit,url } from "./conf.js";
+import { sql_limit, url } from "./conf.js";
 //コンポーネント
 const TODO_HEADER_TOP = {
     path: "/TODO_HEADER_TOP/:PAGE",
@@ -26,6 +26,7 @@ const TODO_HEADER_TOP = {
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/TODO_HEADER_DEL/${tg}`)
                     .then(res => {
+                        
                         this.axios_GET();
                     })
             },
