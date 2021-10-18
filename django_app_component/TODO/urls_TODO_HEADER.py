@@ -1,0 +1,33 @@
+from django.urls import path
+from .views import views_TODO_HEADER
+
+
+TODO_HEADER_TOP = path(
+    'TODO_HEADER_TOP/<int:TODO_PAGE>',
+    views_TODO_HEADER.TODO_HEADER_TOP,
+    name="TODO_HEADER"
+)
+
+TODO_HEADER_TOP_DEL = path(
+    'TODO_HEADER_TOP_DEL/<int:TODO_PAGE>',
+    views_TODO_HEADER.TODO_HEADER_TOP_DEL,
+    name="TODO_HEADER_TOP_DEL"
+)
+
+TODO_HEADER_FORM = path(
+    'TODO_HEADER_FORM/',
+    views_TODO_HEADER.TODO_HEADER_FORM,
+    name="TODO_HEADER_FORM"
+)
+
+TODO_HEADER_FORM_UPDATE = path(
+    'TODO_HEADER_FORM/<int:TODO_HEADER_ID>',
+    views_TODO_HEADER.TODO_HEADER_FORM_UPDATE,
+    name="TODO_HEADER_FORM_UPDATE"
+)
+
+TODO_HEADER_DEL = path(
+    'TODO_HEADER_DEL/<int:TODO_HEADER_ID>',
+    views_TODO_HEADER.TODO_HEADER_DEL,
+    name="TODO_HEADER_DEL"
+)

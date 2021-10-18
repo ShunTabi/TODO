@@ -1,6 +1,6 @@
 <script type="text/x-template" id="GENRE_FORM">
     <section>
-        <h3>[[title]]</h3>
+        <h4>[[title]]</h4>
         <table class="table">
             <tbody>
                 <tr hidden>
@@ -15,6 +15,7 @@
                     <td>日付</td>
                     <td><input type="text" v-model="GENRE_DATE"></td>
                 </tr>
+                {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
                 <tr>
                     <td></td>
                     <td><button @click="axios_POST">[[ button_name ]]</button></td>

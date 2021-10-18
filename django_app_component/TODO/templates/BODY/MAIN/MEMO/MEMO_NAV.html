@@ -1,0 +1,9 @@
+{% load static %}
+<section>
+    {% include 'BODY/MAIN/COM/NAV_MENU_BUTTON.html' %}
+    <nav v-if="nav_menu" class="nav_menu animate__animated animate__lightSpeedInLeft">
+        <router-link to="/MEMO_TOP/1">メモ_一覧</router-link><br/>
+        <router-link to="/MEMO_FORM">メモ_フォーム</router-link><br/>
+        <router-link to="/MEMO_TOP_DEL/1">メモ_ゴミ箱</router-link><br/>
+    </nav>
+</section>
