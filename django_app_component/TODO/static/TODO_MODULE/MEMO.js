@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { sql_limit } from "./conf.js";
+import { sql_limit,url } from "./conf.js";
 //コンポーネント
 const MEMO_TOP = {
     path: "/MEMO_TOP/:PAGE",
@@ -17,10 +17,16 @@ const MEMO_TOP = {
         },
         methods: {
             axios_GET: function() {
-                axios.get(`http://192.168.10.100:8080/TODO/MEMO_TOP/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/MEMO_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                    })
+            },
+            axios_DEL: function (tg) {
+                axios.post(`${url}TODO/MEMO_DEL/${tg}`)
+                    .then(res => {
+                        this.axios_GET();
                     })
             },
             PAGE_BUTTON: function(tg) {
@@ -45,10 +51,11 @@ const MEMO_FORM = {
         data: function() {
             return {
                 MEMO_ID: null,
-                TODO_NAME: null,
+                TODO_DETAIL_NAME: null,
                 MEMO_NOTE: null,
                 MEMO_DATE: null,
-                values_TODO: [
+                VISIBLESTATUS: 0,
+                values_TODO_DETAIL: [
                     []
                 ],
                 button_name: "登録",
@@ -57,22 +64,23 @@ const MEMO_FORM = {
         },
         methods: {
             axios_GET: function() {
-                axios.get("http://192.168.10.100:8080/COM/NOW_TIME/")
+                axios.get(`${url}COM/NOW_TIME/`)
                     .then(res => {
                         this.MEMO_DATE = res.data.values;
                     });
-                axios.get("http://192.168.10.100:8080/TODO/MEMO_FORM/")
+                axios.get(`${url}TODO/MEMO_FORM/`)
                     .then(res => {
-                        this.values_TODO = res.data.values_TODO;
+                        this.values_TODO_DETAIL = res.data.values_TODO_DETAIL;
                     });
             },
-            axios_POST: function() {
+            axios_POST: function () {
                 const params = new URLSearchParams();
-                params.append("TODO_NAME", this.TODO_NAME);
+                params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
                 params.append("MEMO_NOTE", this.MEMO_NOTE);
                 params.append("MEMO_DATE", this.MEMO_DATE);
-                axios.post("http://192.168.10.100:8080/TODO/MEMO_FORM/", params)
-                    .then(res => {})
+                params.append("MEMO_VISIBLESTATUS", this.VISIBLESTATUS);
+                axios.post(`${url}TODO/MEMO_FORM/`, params)
+                    .then(res => { })
             },
         },
         created: function() {
@@ -87,11 +95,11 @@ const MEMO_FORM_UPDATE = {
         delimiters: ["[[", "]]"],
         data: function() {
             return {
-                MEMO_ID: null,
-                TODO_NAME: null,
+                TODO_DETAIL_NAME: null,
                 MEMO_NOTE: null,
                 MEMO_DATE: null,
-                values_TODO: [
+                VISIBLESTATUS: 0,
+                values_TODO_DETAIL: [
                     []
                 ],
                 button_name: "更新",
@@ -100,22 +108,24 @@ const MEMO_FORM_UPDATE = {
         },
         methods: {
             axios_GET: function() {
-                axios.get(`http://192.168.10.100:8080/TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`)
+                axios.get(`${url}TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`)
                     .then(res => {
                         this.MEMO_ID = res.data.values[0][0];
-                        this.TODO_NAME = res.data.values[0][1];
+                        this.TODO_DETAIL_NAME = res.data.values[0][1];
                         this.MEMO_NOTE = res.data.values[0][2];
                         this.MEMO_DATE = res.data.values[0][3];
-                        this.values_TODO = res.data.values_TODO;
+                        this.VISIBLESTATUS = res.data.values[0][4];
+                        this.values_TODO_DETAIL = res.data.values_TODO_DETAIL;
                     })
             },
             axios_POST: function() {
                 const params = new URLSearchParams();
                 params.append("MEMO_ID", this.MEMO_ID);
-                params.append("TODO_NAME", this.TODO_NAME);
+                params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
                 params.append("MEMO_NOTE", this.MEMO_NOTE);
                 params.append("MEMO_DATE", this.MEMO_DATE);
-                axios.post(`http://192.168.10.100:8080/TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`, params)
+                params.append("MEMO_VISIBLESTATUS", this.VISIBLESTATUS);
+                axios.post(`${url}TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`, params)
                     .then(res => {})
             },
         },
@@ -139,10 +149,16 @@ const MEMO_TOP_DEL = {
         },
         methods: {
             axios_GET: function() {
-                axios.get(`http://192.168.10.100:8080/TODO/MEMO_TOP_DEL/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/MEMO_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                    })
+            },
+            axios_DEL: function (tg) {
+                axios.post(`${url}TODO/MEMO_DEL/${tg}`)
+                    .then(res => {
+                        this.axios_GET();
                     })
             },
             PAGE_BUTTON: function(tg) {

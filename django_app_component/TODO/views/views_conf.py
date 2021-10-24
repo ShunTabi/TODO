@@ -1,3 +1,3 @@
 # DBNAME = "DATABASE_DEV.DB"
 DBNAME = "DATABASE_WK.DB"
-sql_limit = 9
+sql_limit = 7

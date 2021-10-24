@@ -8,6 +8,7 @@
                 <tr>
                     <th>項</th>
                     <th>作業名</th>
+                    <th>課題名</th>
                     <th>メモ</th>
                     <th>日付</th>
                     <th colspan="2"></th>
@@ -17,12 +18,13 @@
                 <tr v-for="i_1,index in values">
                     <td>[[ index+1 ]]</td>
                     <td>[[ i_1[1] ]]</td>
-                    <td><pre>[[ i_1[2] ]]</pre></td>
-                    <td>[[ i_1[3] ]]</td>
+                    <td>[[ i_1[2] ]]</td>
+                    <td><pre>[[ i_1[3] ]]</pre></td>
+                    <td>[[ i_1[4] ]]</td>
                     <td>
                         <router-link :to="`/MEMO_FORM/${i_1[0]}`"><button>更新</button></router-link>
                     </td>
-                    <td><button>削除</button></td>
+                    <td><button @click="axios_DEL( i_1[0] )">削除</button></td>
                 </tr>
             </tbody>
         </table>

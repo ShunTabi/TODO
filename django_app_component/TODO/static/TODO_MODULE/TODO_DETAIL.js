@@ -71,7 +71,7 @@ const TODO_DETAIL_TOP_DEL = {
                     })
             },
             PAGE_BUTTON: function (tg) {
-                this.$router.push(`/TODO_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
+                this.$router.push(`/TODO_DETAIL_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
             nav_menu_if: function () {
