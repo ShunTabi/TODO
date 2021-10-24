@@ -22,3 +22,11 @@ MEMO_TOP_DEL = path(
     views_MEMO.MEMO_TOP_DEL,
     name="MEMO_TOP_DEL"
 )
+<<<<<<< HEAD
+=======
+MEMO_DEL = path(
+    'MEMO_DEL/<int:MEMO_ID>',
+    views_MEMO.MEMO_DEL,
+    name="MEMO_DEL"
+)
+>>>>>>> DEV
