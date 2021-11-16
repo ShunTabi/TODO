@@ -3,7 +3,7 @@
 import { sql_limit,url } from "./conf.js";
 //コンポーネント
 const TODO_DETAIL_TOP = {
-    path: "/TODO_DETAIL_TOP/:PAGE",
+    path: "/TODO_DETAIL_TOP/:TODO_HEADER_ID/:PAGE",
     component: {
         template: "#TODO_DETAIL_TOP",
         delimiters: ["[[", "]]"],
@@ -17,7 +17,7 @@ const TODO_DETAIL_TOP = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`${url}TODO/TODO_DETAIL_TOP/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/TODO_DETAIL_TOP/${this.$route.params.TODO_HEADER_ID}/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
@@ -30,7 +30,7 @@ const TODO_DETAIL_TOP = {
                     })
             },
             PAGE_BUTTON: function (tg) {
-                this.$router.push(`/TODO_DETAIL_TOP/${parseInt(this.$route.params.PAGE) + tg}`);
+                this.$router.push(`/TODO_DETAIL_TOP/${this.$route.params.TODO_HEADER_ID}/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
             nav_menu_if: function () {
@@ -44,7 +44,7 @@ const TODO_DETAIL_TOP = {
     }
 };
 const TODO_DETAIL_TOP_DEL = {
-    path: "/TODO_DETAIL_TOP_DEL/:PAGE",
+    path: "/TODO_DETAIL_TOP_DEL/:TODO_HEADER_ID/:PAGE",
     component: {
         template: "#TODO_DETAIL_TOP",
         delimiters: ["[[", "]]"],
@@ -58,7 +58,7 @@ const TODO_DETAIL_TOP_DEL = {
         },
         methods: {
             axios_GET: function () {
-                axios.get(`${url}TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`)
+                axios.get(`${url}TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.TODO_HEADER_ID}/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
@@ -71,7 +71,7 @@ const TODO_DETAIL_TOP_DEL = {
                     })
             },
             PAGE_BUTTON: function (tg) {
-                this.$router.push(`/TODO_DETAIL_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
+                this.$router.push(`/TODO_DETAIL_TOP_DEL/${this.$route.params.TODO_HEADER_ID}/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
             nav_menu_if: function () {

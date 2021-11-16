@@ -18,7 +18,7 @@
                 <tr v-for="i_1,index in values">
                     <td>[[ index+1 ]]</td>
                     <td>[[ i_1[1] ]]</td>
-                    <td>[[ i_1[2] ]]</td>
+                    <td><router-link :to="`/TODO_DETAIL_TOP/${i_1[0]}/1`">[[ i_1[2] ]]</router-link></td>
                     <td>[[ i_1[3] ]]</td>
                     <td>
                         <router-link :to="`/TODO_HEADER_FORM/${i_1[0]}`"><button>更新</button></router-link>
