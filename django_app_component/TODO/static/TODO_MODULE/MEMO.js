@@ -1,13 +1,14 @@
 "use strict";
 //インポート
-import { sql_limit,url } from "./conf.js";
+import { sql_limit, url } from "./conf.js";
+const l_sql_limit = sql_limit - 3;
 //コンポーネント
 const MEMO_TOP = {
     path: "/MEMO_TOP/:PAGE",
     component: {
         template: "#MEMO_TOP",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 values: null,
                 title: "メモ一覧",
@@ -16,11 +17,11 @@ const MEMO_TOP = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get(`${url}TODO/MEMO_TOP/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                        this.page_max = Math.ceil(res.data.values_COUNT / l_sql_limit);
                     })
             },
             axios_DEL: function (tg) {
@@ -29,15 +30,15 @@ const MEMO_TOP = {
                         this.axios_GET();
                     })
             },
-            PAGE_BUTTON: function(tg) {
+            PAGE_BUTTON: function (tg) {
                 this.$router.push(`/MEMO_TOP/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
-            nav_menu_if: function() {
+            nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
             }
         },
-        created: function() {
+        created: function () {
             this.axios_GET();
             this.nav_menu = false;
         }
@@ -48,7 +49,7 @@ const MEMO_FORM = {
     component: {
         template: "#MEMO_FORM",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 MEMO_ID: null,
                 TODO_DETAIL_NAME: null,
@@ -63,7 +64,7 @@ const MEMO_FORM = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get(`${url}COM/NOW_TIME/`)
                     .then(res => {
                         this.MEMO_DATE = res.data.values;
@@ -83,7 +84,7 @@ const MEMO_FORM = {
                     .then(res => { })
             },
         },
-        created: function() {
+        created: function () {
             this.axios_GET();
         }
     }
@@ -93,7 +94,7 @@ const MEMO_FORM_UPDATE = {
     component: {
         template: "#MEMO_FORM",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 TODO_DETAIL_NAME: null,
                 MEMO_NOTE: null,
@@ -107,7 +108,7 @@ const MEMO_FORM_UPDATE = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get(`${url}TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`)
                     .then(res => {
                         this.MEMO_ID = res.data.values[0][0];
@@ -118,7 +119,7 @@ const MEMO_FORM_UPDATE = {
                         this.values_TODO_DETAIL = res.data.values_TODO_DETAIL;
                     })
             },
-            axios_POST: function() {
+            axios_POST: function () {
                 const params = new URLSearchParams();
                 params.append("MEMO_ID", this.MEMO_ID);
                 params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
@@ -126,10 +127,10 @@ const MEMO_FORM_UPDATE = {
                 params.append("MEMO_DATE", this.MEMO_DATE);
                 params.append("MEMO_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`, params)
-                    .then(res => {})
+                    .then(res => { })
             },
         },
-        created: function() {
+        created: function () {
             this.axios_GET();
         }
     }
@@ -139,7 +140,7 @@ const MEMO_TOP_DEL = {
     component: {
         template: "#MEMO_TOP",
         delimiters: ["[[", "]]"],
-        data: function() {
+        data: function () {
             return {
                 values: null,
                 title: "メモ一覧_削除",
@@ -148,11 +149,11 @@ const MEMO_TOP_DEL = {
             }
         },
         methods: {
-            axios_GET: function() {
+            axios_GET: function () {
                 axios.get(`${url}TODO/MEMO_TOP_DEL/${this.$route.params.PAGE}`)
                     .then(res => {
                         this.values = res.data.values;
-                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                        this.page_max = Math.ceil(res.data.values_COUNT / l_sql_limit);
                     })
             },
             axios_DEL: function (tg) {
@@ -161,15 +162,15 @@ const MEMO_TOP_DEL = {
                         this.axios_GET();
                     })
             },
-            PAGE_BUTTON: function(tg) {
+            PAGE_BUTTON: function (tg) {
                 this.$router.push(`/MEMO_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
                 this.axios_GET();
             },
-            nav_menu_if: function() {
+            nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
             }
         },
-        created: function() {
+        created: function () {
             this.axios_GET();
             this.nav_menu = false;
         }
