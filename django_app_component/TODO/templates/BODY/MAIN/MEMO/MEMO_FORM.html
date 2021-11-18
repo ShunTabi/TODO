@@ -8,15 +8,9 @@
                     <td><input type="text" v-model="MEMO_ID"></td>
                 </tr>
                 <tr>
-<<<<<<< HEAD
-                    <td>作業名</td>
-                    <td><select v-model="TODO_NAME">
-                        <option v-for="i_TODO in values_TODO">[[ i_TODO[0] ]]</option>
-=======
                     <td>課題名</td>
                     <td><select v-model="TODO_DETAIL_NAME">
                         <option v-for="i_TODO in values_TODO_DETAIL">[[ i_TODO[0] ]]</option>
->>>>>>> DEV
                     </select></td>
                 </tr>
                 <tr>
@@ -27,10 +21,7 @@
                     <td>日付</td>
                     <td><input type="text" v-model="MEMO_DATE"></td>
                 </tr>
-<<<<<<< HEAD
-=======
                 {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
->>>>>>> DEV
                 <tr>
                     <td></td>
                     <td><button @click="axios_POST">[[ button_name ]]</button></td>
