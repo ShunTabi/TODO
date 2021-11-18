@@ -82,7 +82,6 @@ def MEMO_FORM_UPDATE(req, MEMO_ID):
             req.POST["MEMO_NOTE"],
             req.POST["MEMO_DATE"],
             req.POST["MEMO_VISIBLESTATUS"],
-            req.POST["MEMO_ID"],
         )
         params = {
             "values": views_SQL.SQL_DCL(sql_5, sql_params),
@@ -92,10 +91,10 @@ def MEMO_FORM_UPDATE(req, MEMO_ID):
 
 def MEMO_DEL(req, MEMO_ID):
     if(req.method == 'POST'):
-        sql_params = (
+        sql_params=(
             1, MEMO_ID,
         )
-        params = {
+        params={
             "values": views_SQL.SQL_DCL(sql_6, sql_params),
         }
         return JsonResponse(params)

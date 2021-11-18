@@ -5,8 +5,6 @@ from . import views_SQL, views_conf
 # 定義
 sql_1 = "SELECT TODO_DETAIL_ID,GENRE_SUBNAME,TODO_HEADER_SUBNAME,TODO_DETAIL_NAME,PRIOR_SUBNAME,TODO_DETAIL_STARTDATE,TODO_DETAIL_ENDDATE,TODO_DETAIL_VISIBLESTATUS FROM V_TODO_DETAIL WHERE TODO_DETAIL_VISIBLESTATUS = ? ORDER BY PRIOR_ID,TODO_DETAIL_ENDDATE LIMIT ? OFFSET ?"
 sql_1_count = "SELECT COUNT(*) FROM V_TODO_DETAIL WHERE TODO_DETAIL_VISIBLESTATUS = ?"
-sql_2 = "SELECT TODO_DETAIL_ID,GENRE_SUBNAME,TODO_HEADER_SUBNAME,TODO_DETAIL_NAME,PRIOR_SUBNAME,TODO_DETAIL_STARTDATE,TODO_DETAIL_ENDDATE,TODO_DETAIL_VISIBLESTATUS FROM V_TODO_DETAIL WHERE TODO_DETAIL_VISIBLESTATUS = ? AND TODO_HEADER_ID = ? ORDER BY PRIOR_ID,TODO_DETAIL_ENDDATE LIMIT ? OFFSET ?"
-sql_2_count = "SELECT COUNT(*) FROM V_TODO_DETAIL WHERE TODO_DETAIL_VISIBLESTATUS = ? AND TODO_HEADER_ID = ?"
 sql_3 = "SELECT TODO_DETAIL_ID,TODO_HEADER_NAME,TODO_DETAIL_NAME,PRIOR_NAME,TODO_DETAIL_STARTDATE,TODO_DETAIL_ENDDATE,TODO_DETAIL_VISIBLESTATUS FROM V_TODO_DETAIL WHERE TODO_DETAIL_ID = ?"
 sql_4 = "SELECT GENRE_NAME FROM T_GENRE WHERE GENRE_VISIBLESTATUS = ?"
 sql_5 = "SELECT PRIOR_NAME FROM T_PRIOR WHERE PRIOR_VISIBLESTATUS = ?"
@@ -17,58 +15,30 @@ sql_9 = "UPDATE T_TODO_DETAIL SET TODO_DETAIL_VISIBLESTATUS = ? WHERE TODO_DETAI
 sql_limit = views_conf.sql_limit
 
 
-def TODO_DETAIL_TOP(req, TODO_HEADER_ID, TODO_DETAIL_PAGE):
-    g_sql = ""
-    g_sql_count = ""
-    if(TODO_HEADER_ID == 0):
-        g_sql = sql_1
-        g_sql_count = sql_1_count
-        sql_params = (
-            0, sql_limit, sql_limit*(TODO_DETAIL_PAGE-1),
-        )
-        sql_params_count = (
-            0,
-        )
-    else:
-        g_sql = sql_2
-        g_sql_count = sql_2_count
-        sql_params = (
-            0, TODO_HEADER_ID, sql_limit, sql_limit*(TODO_DETAIL_PAGE-1),
-        )
-        sql_params_count = (
-            0, TODO_HEADER_ID
-        )
+def TODO_DETAIL_TOP(req, TODO_DETAIL_PAGE):
+    sql_params = (
+        0, sql_limit, sql_limit*(TODO_DETAIL_PAGE-1),
+    )
+    sql_params_count = (
+        0,
+    )
     params = {
-        "values": views_SQL.SQL_SELECT(g_sql, sql_params),
-        "values_COUNT": views_SQL.SQL_SELECT(g_sql_count, sql_params_count),
+        "values": views_SQL.SQL_SELECT(sql_1, sql_params),
+        "values_COUNT": views_SQL.SQL_SELECT(sql_1_count, sql_params_count),
     }
     return JsonResponse(params)
 
 
-def TODO_DETAIL_TOP_DEL(req, TODO_HEADER_ID, TODO_DETAIL_PAGE):
-    g_sql = ""
-    g_sql_count = ""
-    if(TODO_HEADER_ID == 0):
-        g_sql = sql_1
-        g_sql_count = sql_1_count
-        sql_params = (
-            0, sql_limit, sql_limit*(TODO_DETAIL_PAGE-1),
-        )
-        sql_params_count = (
-            0,
-        )
-    else:
-        g_sql = sql_2
-        g_sql_count = sql_2_count
-        sql_params = (
-            0, TODO_HEADER_ID, sql_limit, sql_limit*(TODO_DETAIL_PAGE-1),
-        )
-        sql_params_count = (
-            0, TODO_HEADER_ID
-        )
+def TODO_DETAIL_TOP_DEL(req, TODO_DETAIL_PAGE):
+    sql_params = (
+        1, sql_limit, sql_limit*(TODO_DETAIL_PAGE-1),
+    )
+    sql_params_count = (
+        1,
+    )
     params = {
-        "values": views_SQL.SQL_SELECT(g_sql, sql_params),
-        "values_COUNT": views_SQL.SQL_SELECT(g_sql_count, sql_params_count),
+        "values": views_SQL.SQL_SELECT(sql_1, sql_params),
+        "values_COUNT": views_SQL.SQL_SELECT(sql_1_count, sql_params_count),
     }
     return JsonResponse(params)
 
