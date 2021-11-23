@@ -1,5 +1,5 @@
 chcp 65001
-pushd E:\05.DEV_2\django_app_component
+pushd %CD%\django_app_component
 REM start http://localhost:8080/TODO/Django_works/
 REM python manage.py runserver localhost:8080
 start http://192.168.10.100:8080/TODO/Django_works/

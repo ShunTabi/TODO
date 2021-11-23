@@ -1,0 +1,21 @@
+{% load static %}
+<section class="LAUNCHER">
+    {% include 'BODY/MAIN/COM/NAV_MENU_BUTTON.html' %}
+    <nav v-if="nav_menu" class="nav_menu animate__animated animate__lightSpeedInLeft">
+        <router-link to="/TODO_DETAIL_TOP/1">課題_一覧</router-link><br />
+        <router-link to="/TODO_DETAIL_FORM">課題_フォーム</router-link><br />
+        <router-link to="/TODO_DETAIL_TOP_DEL/1">課題_ゴミ箱</router-link><br />
+    </nav>
+    <nav>
+        　作業名：
+        <select v-model="TODO_HEADER_ID" @change="CHANGE_nav_TODO_HEADER_ID()">
+            <option value="0">ALL</option>
+            <option v-for="i_TODO_HEADER in values_TODO_HEADER" v-bind:value="i_TODO_HEADER[0]">[[ i_TODO_HEADER[1] ]]</option>
+        </select>
+        　優先度：
+        <select v-model="PRIOR_ID" @change="CHANGE_nav_PRIOR_ID()">
+            <option value="0">ALL</option>
+            <option v-for="i_PRIOR in values_PRIOR" v-bind:value="i_PRIOR[0]">[[ i_PRIOR[1] ]]</option>
+        </select>
+    </nav>
+</section>

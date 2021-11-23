@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { sql_limit,url } from "./conf.js";
+import { sql_limit, url } from "./conf.js";
 //コンポーネント
 const TODO_DETAIL_TOP = {
     path: "/TODO_DETAIL_TOP/:PAGE",
@@ -13,14 +13,27 @@ const TODO_DETAIL_TOP = {
                 title: "課題一覧",
                 page_max: null,
                 nav_menu: false,
+                PRIOR_ID: 0,
+                TODO_HEADER_ID: 0,
+                values_TODO_HEADER: [
+                    []
+                ],
+                values_PRIOR: [
+                    []
+                ],
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get(`${url}TODO/TODO_DETAIL_TOP/${this.$route.params.PAGE}`)
+                const params = new URLSearchParams();
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
+                params.append("PRIOR_ID", this.PRIOR_ID);
+                axios.get(`${url}TODO/TODO_DETAIL_TOP/${this.$route.params.PAGE}`, { "params": params })
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                        this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        this.values_PRIOR = res.data.values_PRIOR;
                     })
             },
             axios_DEL: function (tg) {
@@ -35,7 +48,15 @@ const TODO_DETAIL_TOP = {
             },
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
-            }
+            },
+            CHANGE_nav_TODO_HEADER_ID() {
+                this.PRIOR_ID = 0;
+                this.axios_GET();
+            },
+            CHANGE_nav_PRIOR_ID() {
+                this.TODO_HEADER_ID = 0;
+                this.axios_GET();
+            },
         },
         created: function () {
             this.axios_GET();
@@ -54,14 +75,27 @@ const TODO_DETAIL_TOP_DEL = {
                 title: "課題一覧_削除",
                 page_max: null,
                 nav_menu: false,
+                PRIOR_ID: 0,
+                TODO_HEADER_ID: 0,
+                values_TODO_HEADER: [
+                    []
+                ],
+                values_PRIOR: [
+                    []
+                ],
             }
         },
         methods: {
             axios_GET: function () {
-                axios.get(`${url}TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`)
+                const params = new URLSearchParams();
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
+                params.append("PRIOR_ID", this.PRIOR_ID);
+                axios.get(`${url}TODO/TODO_DETAIL_TOP_DEL/${this.$route.params.PAGE}`, { "params": params })
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                        this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        this.values_PRIOR = res.data.values_PRIOR;
                     })
             },
             axios_DEL: function (tg) {
@@ -76,7 +110,15 @@ const TODO_DETAIL_TOP_DEL = {
             },
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
-            }
+            },
+            CHANGE_nav_TODO_HEADER_ID() {
+                this.PRIOR_ID = 0;
+                this.axios_GET();
+            },
+            CHANGE_nav_PRIOR_ID() {
+                this.TODO_HEADER_ID = 0;
+                this.axios_GET();
+            },
         },
         created: function () {
             this.axios_GET();
@@ -92,8 +134,8 @@ const TODO_DETAIL_FORM = {
             return {
                 TODO_DETAIL_ID: null,
                 TODO_DETAIL_NAME: null,
-                PRIOR_NAME: null,
-                TODO_HEADER_NAME: null,
+                PRIOR_ID: null,
+                TODO_HEADER_ID: null,
                 TODO_DETAIL_STARTDATE: null,
                 TODO_DETAIL_ENDDATE: null,
                 VISIBLESTATUS: 0,
@@ -118,14 +160,14 @@ const TODO_DETAIL_FORM = {
                     .then(res => {
                         this.values_PRIOR = res.data.values_PRIOR;
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
-                        
+
                     });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
-                params.append("TODO_HEADER_NAME", this.TODO_HEADER_NAME);
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
-                params.append("PRIOR_NAME", this.PRIOR_NAME);
+                params.append("PRIOR_ID", this.PRIOR_ID);
                 params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
                 params.append("TODO_DETAIL_VISIBLESTATUS", this.VISIBLESTATUS);
@@ -148,8 +190,8 @@ const TODO_DETAIL_FORM_UPDATE = {
             return {
                 TODO_DETAIL_ID: null,
                 TODO_DETAIL_NAME: null,
-                PRIOR_NAME: null,
-                TODO_HEADER_NAME: null,
+                PRIOR_ID: null,
+                TODO_HEADER_ID: null,
                 TODO_DETAIL_STARTDATE: null,
                 TODO_DETAIL_ENDDATE: null,
                 VISIBLESTATUS: null,
@@ -168,22 +210,21 @@ const TODO_DETAIL_FORM_UPDATE = {
                 axios.get(`${url}TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`)
                     .then(res => {
                         this.TODO_DETAIL_ID = res.data.values[0][0];
-                        this.TODO_HEADER_NAME = res.data.values[0][1];
+                        this.TODO_HEADER_ID = res.data.values[0][1];
                         this.TODO_DETAIL_NAME = res.data.values[0][2];
-                        this.PRIOR_NAME = res.data.values[0][3];
+                        this.PRIOR_ID = res.data.values[0][3];
                         this.TODO_DETAIL_STARTDATE = res.data.values[0][4];
                         this.TODO_DETAIL_ENDDATE = res.data.values[0][5];
                         this.VISIBLESTATUS = res.data.values[0][6];
                         this.values_PRIOR = res.data.values_PRIOR;
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
-                        console.log(res);
                     })
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
-                params.append("TODO_HEADER_NAME", this.TODO_HEADER_NAME);
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
-                params.append("PRIOR_NAME", this.PRIOR_NAME);
+                params.append("PRIOR_ID", this.PRIOR_ID);
                 params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
                 params.append("TODO_DETAIL_VISIBLESTATUS", this.VISIBLESTATUS);

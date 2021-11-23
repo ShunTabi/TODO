@@ -10,8 +10,8 @@
                 </tr>
                 <tr>
                     <td>作業名</td>
-                    <td><select v-model="TODO_HEADER_NAME">
-                        <option v-for="i_TODO_HEADER_NAME in values_TODO_HEADER">[[ i_TODO_HEADER_NAME[0] ]]</option>
+                    <td><select v-model="TODO_HEADER_ID">
+                        <option v-for="i_TODO_HEADER in values_TODO_HEADER" v-bind:value="i_TODO_HEADER[0]">[[ i_TODO_HEADER[1] ]]</option>
                     </select></td>
                 </tr>
                 <tr>
@@ -20,8 +20,8 @@
                 </tr>
                 <tr>
                     <td>優先度</td>
-                    <td><select v-model="PRIOR_NAME">
-                        <option v-for="i_PRIOR in values_PRIOR">[[ i_PRIOR[0] ]]</option>
+                    <td><select v-model="PRIOR_ID">
+                        <option v-for="i_PRIOR in values_PRIOR" v-bind:value="i_PRIOR[0]">[[ i_PRIOR[1] ]]</option>
                     </select></td>
                 </tr>
                 <tr>

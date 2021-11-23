@@ -13,8 +13,8 @@
                 </tr>
                 <tr>
                     <td>種別名</td>
-                    <td><select v-model="GENRE_NAME">
-                        <option v-for="i_GENRE in values_GENRE">[[ i_GENRE[0] ]]</option>
+                    <td><select v-model="GENRE_ID">
+                        <option v-for="i_GENRE in values_GENRE" v-bind:value="i_GENRE[0]">[[ i_GENRE[1] ]]</option>
                     </select></td>
                 </tr>
                 <tr>

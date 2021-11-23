@@ -93,14 +93,10 @@ const TODO_HEADER_FORM = {
             return {
                 TODO_HEADER_ID: null,
                 TODO_HEADER_NAME: null,
-                GENRE_NAME: null,
-                PRIOR_NAME: null,
+                GENRE_ID: null,
                 TODO_HEADER_DATE: null,
                 VISIBLESTATUS: 0,
                 values_GENRE: [
-                    []
-                ],
-                values_PRIOR: [
                     []
                 ],
                 button_name: "登録",
@@ -121,7 +117,7 @@ const TODO_HEADER_FORM = {
             axios_POST: function () {
                 const params = new URLSearchParams();
                 params.append("TODO_HEADER_NAME", this.TODO_HEADER_NAME);
-                params.append("GENRE_NAME", this.GENRE_NAME);
+                params.append("GENRE_ID", this.GENRE_ID);
                 params.append("TODO_HEADER_DATE", this.TODO_HEADER_DATE);
                 params.append("TODO_HEADER_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/TODO_HEADER_FORM/`, params)
@@ -142,7 +138,7 @@ const TODO_HEADER_FORM_UPDATE = {
             return {
                 TODO_HEADER_ID: null,
                 TODO_HEADER_NAME: null,
-                GENRE_NAME: null,
+                GENRE_ID: null,
                 TODO_HEADER_DATE: null,
                 VISIBLESTATUS: null,
                 values_GENRE: [
@@ -158,7 +154,7 @@ const TODO_HEADER_FORM_UPDATE = {
                     .then(res => {
                         this.TODO_HEADER_ID = res.data.values[0][0];
                         this.TODO_HEADER_NAME = res.data.values[0][1];
-                        this.GENRE_NAME = res.data.values[0][2];
+                        this.GENRE_ID = res.data.values[0][2];
                         this.TODO_HEADER_DATE = res.data.values[0][3];
                         this.VISIBLESTATUS = res.data.values[0][4];
                         this.values_GENRE = res.data.values_GENRE;
@@ -169,7 +165,7 @@ const TODO_HEADER_FORM_UPDATE = {
                 const params = new URLSearchParams();
                 params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("TODO_HEADER_NAME", this.TODO_HEADER_NAME);
-                params.append("GENRE_NAME", this.GENRE_NAME);
+                params.append("GENRE_ID", this.GENRE_ID);
                 params.append("TODO_HEADER_DATE", this.TODO_HEADER_DATE);
                 params.append("TODO_HEADER_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/TODO_HEADER_FORM/${this.$route.params.TODO_HEADER_ID}`, params)

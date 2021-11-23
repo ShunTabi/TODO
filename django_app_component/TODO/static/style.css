@@ -7,7 +7,7 @@ body {
 }
 
 pre {
-    font-size: 13.5px;
+    font-size: 11px;
     font-family: "Yu Mincho";
 }
 
@@ -23,6 +23,12 @@ pre {
     color: white;
 }
 
+textarea{
+    width:240px;
+    height:100px;
+    font-size: 11px;
+}
+
 .button_cursor {
     cursor: pointer;
 }
@@ -34,4 +40,17 @@ pre {
 
 .nav_menu_button {
     float: left;
+}
+
+.LAUNCHER{
+    display:inline;
+}
+
+.LAUNCHER nav{
+    display: inline;
+}
+
+.value_MEMO_NOTE{
+    height:22px;
+    font-size: 11px;
 }

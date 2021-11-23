@@ -9,8 +9,8 @@
                 </tr>
                 <tr>
                     <td>課題名</td>
-                    <td><select v-model="TODO_DETAIL_NAME">
-                        <option v-for="i_TODO in values_TODO_DETAIL">[[ i_TODO[0] ]]</option>
+                    <td><select v-model="TODO_DETAIL_ID">
+                        <option v-for="i_TODO_DETAIL in values_TODO_DETAIL" v-bind:value="i_TODO_DETAIL[0]">[[ i_TODO_DETAIL[1] ]]</option>
                     </select></td>
                 </tr>
                 <tr>

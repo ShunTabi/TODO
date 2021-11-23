@@ -2,7 +2,8 @@
 <script type="text/x-template" id="TODO_DETAIL_TOP">
     <section>
         <h4>[[title]]</h4>
-        {% include 'BODY/MAIN/TODO_DETAIL/TODO_DETAIL_NAV.html' %}{% include 'BODY/MAIN/COM/PAGE_NAV.html' %}
+        {% include 'BODY/MAIN/TODO_DETAIL/TODO_DETAIL_LAUNCHER.html' %}
+        {% include 'BODY/MAIN/COM/PAGE_NAV.html' %}
         <table class="table">
             <thead>
                 <tr>
@@ -24,6 +25,7 @@
                     <td>[[ i_1[3] ]]</td>
                     <td>[[ i_1[4] ]]</td>
                     <td>[[ i_1[5] ]]</td>
+                    <td>[[ i_1[6] ]]</td>
                     <td>
                         <router-link :to="`/TODO_DETAIL_FORM/${i_1[0]}`"><button>更新</button></router-link>
                     </td>
