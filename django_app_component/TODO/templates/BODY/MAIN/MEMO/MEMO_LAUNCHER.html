@@ -13,6 +13,6 @@
             <option v-for="i_TODO_DETAIL in values_TODO_DETAIL" v-bind:value="i_TODO_DETAIL[0]">[[ i_TODO_DETAIL[1] ]]</option>
         </select>
         　メモ：
-        <input type="text" class="value_MEMO_NOTE" v-model="value_MEMO_NOTE" @change="CHANGE_nav_MEMO_NOTE()">
+        <input type="text" class="value_MEMO_NOTE" v-model="value_MEMO_NOTE" @change="CHANGE_nav_MEMO_NOTE()" maxlength="5" placeholder="5字まで"> 
     </nav>
 </section>

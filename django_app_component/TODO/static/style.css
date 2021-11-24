@@ -23,9 +23,9 @@ pre {
     color: white;
 }
 
-textarea{
-    width:240px;
-    height:100px;
+textarea {
+    width: 240px;
+    height: 100px;
     font-size: 11px;
 }
 
@@ -42,15 +42,19 @@ textarea{
     float: left;
 }
 
-.LAUNCHER{
-    display:inline;
-}
-
-.LAUNCHER nav{
+.LAUNCHER {
     display: inline;
 }
 
-.value_MEMO_NOTE{
-    height:22px;
+.LAUNCHER nav {
+    display: inline;
+}
+
+.value_MEMO_NOTE {
+    height: 22px;
     font-size: 11px;
+}
+
+.span_highlight {
+    color: red;
 }

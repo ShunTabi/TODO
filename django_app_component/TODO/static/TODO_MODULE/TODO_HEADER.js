@@ -26,7 +26,7 @@ const TODO_HEADER_TOP = {
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/TODO_HEADER_DEL/${tg}`)
                     .then(res => {
-                        
+
                         this.axios_GET();
                     })
             },
@@ -36,7 +36,7 @@ const TODO_HEADER_TOP = {
             },
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
-            }
+            }, 
         },
         created: function () {
             this.axios_GET();

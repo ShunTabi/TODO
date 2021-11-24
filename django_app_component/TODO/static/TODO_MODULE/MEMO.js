@@ -1,6 +1,7 @@
 "use strict";
 //インポート
 import { sql_limit, url } from "./conf.js";
+import { COM_highlight } from "./COM.js";
 const l_sql_limit = sql_limit - 3;
 //コンポーネント
 const MEMO_TOP = {
@@ -15,7 +16,9 @@ const MEMO_TOP = {
                 page_max: null,
                 nav_menu: false,
                 TODO_DETAIL_ID: 0,
-                values_TODO_DETAIL: [[]],
+                values_TODO_DETAIL: [
+                    []
+                ],
                 value_MEMO_NOTE: "",
             }
         },
@@ -77,6 +80,7 @@ const MEMO_TOP_DEL = {
         },
         methods: {
             axios_GET: function () {
+                const params = new URLSearchParams();
                 params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
                 params.append("value_MEMO_NOTE", this.value_MEMO_NOTE);
                 axios.get(`${url}TODO/MEMO_TOP_DEL/${this.$route.params.PAGE}`, { "params": params })
