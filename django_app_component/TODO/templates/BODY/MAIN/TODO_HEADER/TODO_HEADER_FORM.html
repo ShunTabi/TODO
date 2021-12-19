@@ -1,25 +1,36 @@
+{% load static %}
 <script type="text/x-template" id="TODO_HEADER_FORM">
     <section>
         <h4>[[title]]</h4>
         <table class="table">
             <tbody>
                 <tr hidden>
-                    <td>TODO_ID</td>
+                    <td>TODO_HEADER_ID</td>
                     <td><input type="text" v-model="TODO_HEADER_ID"></td>
                 </tr>
                 <tr>
                     <td>作業名</td>
-                    <td><input type="text" v-model="TODO_HEADER_NAME"></td>
-                </tr>
-                <tr>
-                    <td>種別名</td>
-                    <td><select v-model="GENRE_ID">
-                        <option v-for="i_GENRE in values_GENRE" v-bind:value="i_GENRE[0]">[[ i_GENRE[1] ]]</option>
+                    <td><select v-model="GOAL_ID">
+                        <option v-for="i_GOAL in values_GOAL" v-bind:value="i_GOAL[0]">[[ i_GOAL[1] ]]</option>
                     </select></td>
                 </tr>
                 <tr>
-                    <td>日付</td>
-                    <td><input type="text" v-model="TODO_HEADER_DATE"></td>
+                    <td>課題名</td>
+                    <td><input type="text" v-model="TODO_HEADER_NAME"></td>
+                </tr>
+                <tr>
+                    <td>優先度</td>
+                    <td><select v-model="PRIOR_ID">
+                        <option v-for="i_PRIOR in values_PRIOR" v-bind:value="i_PRIOR[0]">[[ i_PRIOR[1] ]]</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>開始日</td>
+                    <td><input type="text" v-model="TODO_HEADER_STARTDATE"></td>
+                </tr>
+                <tr>
+                    <td>期日</td>
+                    <td><input type="text" v-model="TODO_HEADER_ENDDATE"></td>
                 </tr>
                 {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
                 <tr>

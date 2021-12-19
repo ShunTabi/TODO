@@ -1,0 +1,32 @@
+<script type="text/x-template" id="GOAL_FORM">
+    <section>
+        <h4>[[title]]</h4>
+        <table class="table">
+            <tbody>
+                <tr hidden>
+                    <td>GOAL_ID</td>
+                    <td><input type="text" v-model="GOAL_ID"></td>
+                </tr>
+                <tr>
+                    <td>目標名</td>
+                    <td><input type="text" v-model="GOAL_NAME"></td>
+                </tr>
+                <tr>
+                    <td>種別</td>
+                    <td><select v-model="GENRE_ID">
+                        <option v-for="i_GENRE in values_GENRE" v-bind:value="i_GENRE[0]">[[ i_GENRE[1] ]]</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td>日付</td>
+                    <td><input type="text" v-model="GOAL_DATE"></td>
+                </tr>
+                {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
+                <tr>
+                    <td></td>
+                    <td><button @click="axios_POST">[[ button_name ]]</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</script>

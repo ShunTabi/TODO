@@ -1,11 +1,11 @@
-<script type="text/x-template" id="MEMO_FORM">
+<script type="text/x-template" id="NOTE_FORM">
     <section>
         <h4>[[title]]</h4>
         <table class="table">
             <tbody>
                 <tr hidden>
-                    <td>MEMO_ID</td>
-                    <td><input type="text" v-model="MEMO_ID"></td>
+                    <td>NOTE_ID</td>
+                    <td><input type="text" v-model="NOTE_ID"></td>
                 </tr>
                 <tr>
                     <td>課題名</td>
@@ -15,11 +15,11 @@
                 </tr>
                 <tr>
                     <td>メモ</td>
-                    <td><textarea v-model="MEMO_NOTE"></textarea></td>
+                    <td><textarea v-model="NOTE_NOTE"></textarea></td>
                 </tr>
                 <tr>
                     <td>日付</td>
-                    <td><input type="text" v-model="MEMO_DATE"></td>
+                    <td><input type="text" v-model="NOTE_DATE"></td>
                 </tr>
                 {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
                 <tr>

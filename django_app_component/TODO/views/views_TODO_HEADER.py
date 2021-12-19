@@ -1,66 +1,147 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from . import views_SQL, views_conf,views_COM
+from . import views_SQL, views_conf, views_COM
 
 # 定義
-
-sql_1 = "SELECT TODO_HEADER_ID,GENRE_NAME,TODO_HEADER_NAME,TODO_HEADER_DATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ? ORDER BY TODO_HEADER_DATE DESC LIMIT ? OFFSET ?"
-sql_1_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ? ORDER BY TODO_HEADER_DATE"
-sql_2 = "SELECT TODO_HEADER_ID,GENRE_NAME,TODO_HEADER_NAME, TODO_HEADER_DATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE TODO_HEADER_ID NOT IN (SELECT TODO_HEADER_ID FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ?) ORDER BY TODO_HEADER_DATE LIMIT ? OFFSET ?"
-sql_2_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE TODO_HEADER_ID NOT IN (SELECT TODO_HEADER_ID FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ?)"
-sql_3 = "SELECT TODO_HEADER_ID,TODO_HEADER_NAME,GENRE_ID,TODO_HEADER_DATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE TODO_HEADER_ID = ?"
-sql_6 = "INSERT INTO T_TODO_HEADER(TODO_HEADER_NAME,GENRE_ID,TODO_HEADER_DATE,TODO_HEADER_VISIBLESTATUS) VALUES(?,?,?,?)"
-sql_7 = "UPDATE T_TODO_HEADER SET TODO_HEADER_NAME = ?,GENRE_ID = ?,TODO_HEADER_DATE = ?,TODO_HEADER_VISIBLESTATUS = ? WHERE TODO_HEADER_ID = ?"
-sql_8 = "UPDATE T_TODO_HEADER SET TODO_HEADER_VISIBLESTATUS = ? WHERE TODO_HEADER_ID = ?"
+# sql_1 = "SELECT TODO_HEADER_ID,GENRE_SUBNAME,TODO_HEADER_SUBNAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ? ORDER BY PRIOR_ID,TODO_HEADER_ENDDATE,TODO_HEADER_STARTDATE LIMIT ? OFFSET ?"
+# sql_1_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ?"
+# sql_2 = "SELECT TODO_HEADER_ID,GENRE_SUBNAME,TODO_HEADER_SUBNAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE PRIOR_ID = ? AND TODO_HEADER_VISIBLESTATUS = ? ORDER BY PRIOR_ID,TODO_HEADER_ENDDATE,TODO_HEADER_STARTDATE LIMIT ? OFFSET ?"
+# sql_2_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE PRIOR_ID = ? AND TODO_HEADER_VISIBLESTATUS = ?"
+# sql_4 = "SELECT TODO_HEADER_ID,GENRE_SUBNAME,TODO_HEADER_SUBNAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE TODO_HEADER_ID = ? AND TODO_HEADER_VISIBLESTATUS = ? ORDER BY PRIOR_ID,TODO_HEADER_ENDDATE,TODO_HEADER_STARTDATE LIMIT ? OFFSET ?"
+# sql_4_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE TODO_HEADER_ID = ? AND TODO_HEADER_VISIBLESTATUS = ?"
+# sql_3 = "SELECT TODO_HEADER_ID,TODO_HEADER_ID,TODO_HEADER_NAME,PRIOR_ID,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS FROM V_TODO_HEADER WHERE TODO_HEADER_ID = ?"
+# sql_6 = "INSERT INTO T_TODO_HEADER(TODO_HEADER_ID,TODO_HEADER_NAME,PRIOR_ID,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS) VALUES(?,?,?,?,?,?)"
+# sql_7 = "UPDATE T_TODO_HEADER SET TODO_HEADER_ID = ?,TODO_HEADER_NAME = ?,PRIOR_ID = ?,TODO_HEADER_STARTDATE = ?,TODO_HEADER_ENDDATE = ?,TODO_HEADER_VISIBLESTATUS = ? WHERE TODO_HEADER_ID = ?"
+# sql_9 = "UPDATE T_TODO_HEADER SET TODO_HEADER_VISIBLESTATUS = ? WHERE TODO_HEADER_ID = ?"
 sql_limit = views_conf.sql_limit
+sql_1 = "SELECT TODO_HEADER_ID,GOAL_NAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
+sql_1_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE TODO_HEADER_VISIBLESTATUS = ?"
+sql_2 = "SELECT TODO_HEADER_ID,GOAL_NAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE FROM V_TODO_HEADER WHERE PRIOR_ID = ? AND TODO_HEADER_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
+sql_2_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE PRIOR_ID = ? AND TODO_HEADER_VISIBLESTATUS = ?"
+sql_3 = "SELECT TODO_HEADER_ID,GOAL_NAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE FROM V_TODO_HEADER WHERE GOAL_ID = ? AND TODO_HEADER_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
+sql_3_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE GOAL_ID = ? AND TODO_HEADER_VISIBLESTATUS = ?"
+sql_4 = "SELECT TODO_HEADER_ID,GOAL_NAME,TODO_HEADER_NAME,PRIOR_SUBNAME,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE FROM V_TODO_HEADER WHERE GOAL_ID = ? AND PRIOR_ID = ? AND TODO_HEADER_VISIBLESTATUS = ? LIMIT ? OFFSET ?"
+sql_4_count = "SELECT COUNT(*) FROM V_TODO_HEADER WHERE GOAL_ID = ? AND PRIOR_ID = ? AND TODO_HEADER_VISIBLESTATUS = ?"
+sql_5 = "INSERT INTO T_TODO_HEADER(GOAL_ID,TODO_HEADER_NAME,PRIOR_ID,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS) VALUES(?,?,?,?,?,?)"
+sql_6 = "SELECT TODO_HEADER_ID,GOAL_ID,TODO_HEADER_NAME,PRIOR_ID,TODO_HEADER_STARTDATE,TODO_HEADER_ENDDATE,TODO_HEADER_VISIBLESTATUS FROM T_TODO_HEADER WHERE TODO_HEADER_ID = ?"
+sql_7 = "UPDATE T_TODO_HEADER SET GOAL_ID = ?,TODO_HEADER_NAME = ?,PRIOR_ID = ?,TODO_HEADER_STARTDATE = ?,TODO_HEADER_ENDDATE = ?,TODO_HEADER_VISIBLESTATUS = ? WHERE TODO_HEADER_ID = ?"
+sql_8 = "UPDATE T_TODO_HEADER SET TODO_HEADER_VISIBLESTATUS = ? WHERE TODO_HEADER_ID = ?"
 
 
-def TODO_HEADER_TOP(req, TODO_PAGE):
-    if(req.method == "GET"):
+def TODO_HEADER_TOP(req, TODO_HEADER_PAGE):
+    GOAL_ID = req.GET["GOAL_ID"]
+    PRIOR_ID = req.GET["PRIOR_ID"]
+    if(GOAL_ID == "0" and PRIOR_ID == "0"):
         sql_params = (
-            0, sql_limit, sql_limit*(TODO_PAGE-1),
+            0, sql_limit, sql_limit*(  TODO_HEADER_PAGE-1),
         )
         sql_params_count = (
             0,
         )
-        params = {
-            "values": views_SQL.SQL_SELECT(sql_1, sql_params),
-            "values_COUNT": views_SQL.SQL_SELECT(sql_1_count, sql_params_count),
-        }
-        return JsonResponse(params)
-
-
-def TODO_HEADER_TOP_DEL(req, TODO_PAGE):
-    if(req.method == "GET"):
+        sql = sql_1
+        sql_count = sql_1_count
+    elif(GOAL_ID == "0" and PRIOR_ID != "0"):
         sql_params = (
-            0, sql_limit, sql_limit*(TODO_PAGE-1),
+            PRIOR_ID, 0, sql_limit, sql_limit*(TODO_HEADER_PAGE-1),
         )
         sql_params_count = (
-            0,
+            PRIOR_ID, 0,
         )
-        params = {
-            "values": views_SQL.SQL_SELECT(sql_2, sql_params),
-            "values_COUNT": views_SQL.SQL_SELECT(sql_2_count, sql_params_count),
-        }
+        sql = sql_2
+        sql_count = sql_2_count
+    elif(GOAL_ID != "0" and PRIOR_ID == "0"):
+        sql_params = (
+            GOAL_ID, 0, sql_limit, sql_limit*(TODO_HEADER_PAGE-1),
+        )
+        sql_params_count = (
+            GOAL_ID, 0,
+        )
+        sql = sql_3
+        sql_count = sql_3_count
+    elif(GOAL_ID != "0" and PRIOR_ID != "0"):
+        sql_params = (
+            GOAL_ID,PRIOR_ID, 0, sql_limit, sql_limit*(TODO_HEADER_PAGE-1),
+        )
+        sql_params_count = (
+            GOAL_ID,PRIOR_ID, 0,
+        )
+        sql = sql_4
+        sql_count = sql_4_count
+    params = {
+        "values": views_SQL.SQL_SELECT(sql, sql_params),
+        "values_COUNT": views_SQL.SQL_SELECT(sql_count, sql_params_count),
+        "values_GOAL": views_COM.values_GOAL(),
+        "values_PRIOR": views_COM.values_PRIOR(),
+    }
+    return JsonResponse(params)
+
+
+def TODO_HEADER_TOP_DEL(req, TODO_HEADER_PAGE):
+    GOAL_ID = req.GET["GOAL_ID"]
+    PRIOR_ID = req.GET["PRIOR_ID"]
+    if(GOAL_ID == "0" and PRIOR_ID == "0"):
+        sql_params = (
+            1, sql_limit, sql_limit*(  TODO_HEADER_PAGE-1),
+        )
+        sql_params_count = (
+            1,
+        )
+        sql = sql_1
+        sql_count = sql_1_count
+    elif(GOAL_ID == "0" and PRIOR_ID != "0"):
+        sql_params = (
+            PRIOR_ID, 1, sql_limit, sql_limit*(TODO_HEADER_PAGE-1),
+        )
+        sql_params_count = (
+            PRIOR_ID, 1,
+        )
+        sql = sql_2
+        sql_count = sql_2_count
+    elif(GOAL_ID != "0" and PRIOR_ID == "0"):
+        sql_params = (
+            GOAL_ID, 1, sql_limit, sql_limit*(TODO_HEADER_PAGE-1),
+        )
+        sql_params_count = (
+            GOAL_ID, 1,
+        )
+        sql = sql_3
+        sql_count = sql_3_count
+    elif(GOAL_ID != "0" and PRIOR_ID != "0"):
+        sql_params = (
+            GOAL_ID,PRIOR_ID, 1, sql_limit, sql_limit*(TODO_HEADER_PAGE-1),
+        )
+        sql_params_count = (
+            GOAL_ID,PRIOR_ID, 1,
+        )
+        sql = sql_4
+        sql_count = sql_4_count
+    params = {
+        "values": views_SQL.SQL_SELECT(sql, sql_params),
+        "values_COUNT": views_SQL.SQL_SELECT(sql_count, sql_params_count),
+        "values_TODO_HEADER": views_COM.values_TODO_HEADER(),
+        "values_PRIOR": views_COM.values_PRIOR(),
+    }
     return JsonResponse(params)
 
 
 def TODO_HEADER_FORM(req):
     if(req.method == "GET"):
         params = {
-            "values_GENRE": views_COM.values_GENRE(),
             "values_PRIOR": views_COM.values_PRIOR(),
+            "values_GOAL": views_COM.values_GOAL(),
         }
         return JsonResponse(params)
     if(req.method == "POST"):
         sql_params = (
+            req.POST["GOAL_ID"],
             req.POST["TODO_HEADER_NAME"],
-            req.POST["GENRE_ID"],
-            req.POST["TODO_HEADER_DATE"],
+            req.POST["PRIOR_ID"],
+            req.POST["TODO_HEADER_STARTDATE"],
+            req.POST["TODO_HEADER_ENDDATE"],
             req.POST["TODO_HEADER_VISIBLESTATUS"],
         )
         params = {
-            "values": views_SQL.SQL_DCL(sql_6, sql_params),
+            "values": views_SQL.SQL_DML(sql_5, sql_params),
         }
         return JsonResponse(params)
 
@@ -71,20 +152,23 @@ def TODO_HEADER_FORM_UPDATE(req, TODO_HEADER_ID):
             TODO_HEADER_ID,
         )
         params = {
-            "values": views_SQL.SQL_SELECT(sql_3, sql_params),
-            "values_GENRE": views_COM.values_GENRE(),
+            "values": views_SQL.SQL_SELECT(sql_6, sql_params),
+            "values_PRIOR": views_COM.values_PRIOR(),
+            "values_GOAL": views_COM.values_GOAL(),
         }
         return JsonResponse(params)
     elif(req.method == "POST"):
         sql_params = (
+            req.POST["GOAL_ID"],
             req.POST["TODO_HEADER_NAME"],
-            req.POST["GENRE_ID"],
-            req.POST["TODO_HEADER_DATE"],
+            req.POST["PRIOR_ID"],
+            req.POST["TODO_HEADER_STARTDATE"],
+            req.POST["TODO_HEADER_ENDDATE"],
             req.POST["TODO_HEADER_VISIBLESTATUS"],
-            TODO_HEADER_ID
+            TODO_HEADER_ID,
         )
         params = {
-            "values": views_SQL.SQL_DCL(sql_7, sql_params),
+            "values": views_SQL.SQL_DML(sql_7, sql_params),
         }
         return JsonResponse(params)
 
@@ -95,6 +179,6 @@ def TODO_HEADER_DEL(req, TODO_HEADER_ID):
             1, TODO_HEADER_ID,
         )
         params = {
-            "values": views_SQL.SQL_DCL(sql_8, sql_params),
+            "values": views_SQL.SQL_DML(sql_8, sql_params),
         }
         return JsonResponse(params)

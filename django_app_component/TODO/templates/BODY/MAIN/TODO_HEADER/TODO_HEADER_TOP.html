@@ -2,24 +2,29 @@
 <script type="text/x-template" id="TODO_HEADER_TOP">
     <section>
         <h4>[[title]]</h4>
-        <div>{% include 'BODY/MAIN/TODO_HEADER/TODO_HEADER_LAUNCHER.html' %}</div>
-        <div>{% include 'BODY/MAIN/COM/PAGE_NAV.html' %}</div>
+        {% include 'BODY/MAIN/TODO_HEADER/TODO_HEADER_LAUNCHER.html' %}
+        {% include 'BODY/MAIN/COM/PAGE_NAV.html' %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>項</th>
-                    <th>種別名</th>
-                    <th>作業名</th>
-                    <th>日付</th>
+                    <th hidden>TODO_HEADER_ID</th>
+                    <th>目標</th>
+                    <th>作業</th>
+                    <th>優先度</th>
+                    <th>開始日</th>
+                    <th>期日</th>
                     <th colspan="2"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="i_1,index in values">
-                    <td>[[ index+1 ]]</td>
+                    <td hidden>[[ i_1[0] ]]</td>
                     <td>[[ i_1[1] ]]</td>
                     <td>[[ i_1[2] ]]</td>
                     <td>[[ i_1[3] ]]</td>
+                    <td>[[ i_1[4] ]]</td>
+                    <td>[[ i_1[5] ]]</td>
+                    <td>[[ i_1[6] ]]</td>
                     <td>
                         <router-link :to="`/TODO_HEADER_FORM/${i_1[0]}`"><button>更新</button></router-link>
                     </td>

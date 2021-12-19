@@ -1,0 +1,9 @@
+{% load static %}
+<section class="LANCHER">
+    {% include 'BODY/MAIN/COM/NAV_MENU_BUTTON.html' %}
+    <nav v-if="nav_menu" class="nav_menu animate__animated animate__lightSpeedInLeft">
+        <router-link to="/GOAL_TOP/1">目標_一覧</router-link><br/>
+        <router-link to="/GOAL_FORM">目標_フォーム</router-link><br/>
+        <router-link to="/GOAL_TOP_DEL/1">目標_ゴミ箱</router-link><br/>
+    </nav>
+</section>

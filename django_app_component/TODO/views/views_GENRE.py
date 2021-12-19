@@ -50,7 +50,7 @@ def GENRE_FORM(req):
             req.POST["GENRE_VISIBLESTATUS"],
         )
         params = {
-            "values": views_SQL.SQL_DCL(sql_3, sql_params),
+            "values": views_SQL.SQL_DML(sql_3, sql_params),
         }
         return JsonResponse(params)
 
@@ -72,7 +72,7 @@ def GENRE_FORM_UPDATE(req, GENRE_ID):
             req.POST["GENRE_ID"],
         )
         params = {
-            "values": views_SQL.SQL_DCL(sql_4, sql_params),
+            "values": views_SQL.SQL_DML(sql_4, sql_params),
         }
         return JsonResponse(params)
 
@@ -83,6 +83,6 @@ def GENRE_DEL(req, GENRE_ID):
              1, GENRE_ID,
         )
         params = {
-            "values": views_SQL.SQL_DCL(sql_5, sql_params),
+            "values": views_SQL.SQL_DML(sql_5, sql_params),
         }
         return JsonResponse(params)

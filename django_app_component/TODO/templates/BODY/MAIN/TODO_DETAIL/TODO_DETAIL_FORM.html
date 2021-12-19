@@ -1,11 +1,10 @@
-{% load static %}
 <script type="text/x-template" id="TODO_DETAIL_FORM">
     <section>
         <h4>[[title]]</h4>
         <table class="table">
             <tbody>
                 <tr hidden>
-                    <td>TODO_ID</td>
+                    <td>TODO_DETAIL_ID</td>
                     <td><input type="text" v-model="TODO_DETAIL_ID"></td>
                 </tr>
                 <tr>
@@ -15,22 +14,18 @@
                     </select></td>
                 </tr>
                 <tr>
-                    <td>課題名</td>
-                    <td><input type="text" v-model="TODO_DETAIL_NAME"></td>
+                    <td>課題内容</td>
+                    <td><textarea v-model="TODO_DETAIL_CONTENT"></textarea></td>
                 </tr>
                 <tr>
-                    <td>優先度</td>
-                    <td><select v-model="PRIOR_ID">
-                        <option v-for="i_PRIOR in values_PRIOR" v-bind:value="i_PRIOR[0]">[[ i_PRIOR[1] ]]</option>
+                    <td>進捗</td>
+                    <td><select v-model="STATUS_ID">
+                        <option v-for="i_STATUS in values_STATUS" v-bind:value="i_STATUS[0]">[[ i_STATUS[1] ]]</option>
                     </select></td>
                 </tr>
                 <tr>
-                    <td>開始日</td>
-                    <td><input type="text" v-model="TODO_DETAIL_STARTDATE"></td>
-                </tr>
-                <tr>
-                    <td>期日</td>
-                    <td><input type="text" v-model="TODO_DETAIL_ENDDATE"></td>
+                    <td>日付</td>
+                    <td><input type="text" v-model="TODO_DETAIL_DATE"></td>
                 </tr>
                 {% include 'BODY\MAIN\COM\COMBO_VISIBLESTATUS.html' %}
                 <tr>
