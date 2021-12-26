@@ -6,9 +6,9 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>項</th>
+                    <th hidden>MEMO_ID</th>
+                    <th>目標名</th>
                     <th>作業名</th>
-                    <th>課題名</th>
                     <th>メモ</th>
                     <th>日付</th>
                     <th colspan="2"></th>
@@ -16,11 +16,12 @@
             </thead>
             <tbody>
                 <tr v-for="i_1,index in values">
-                    <td>[[ index+1 ]]</td>
+                    <td hidden>[[ i_1[0] ]]</td>
                     <td>[[ i_1[1] ]]</td>
                     <td>[[ i_1[2] ]]</td>
-                    <td><pre>[[ i_1[3] ]]</pre></td>
-                    <td>[[ i_1[4] ]]</td>
+                    <td v-if="i_1[4] != null"><pre><span class="TODO_DETAIL_UNDERLINE GREEN_COLOR">【[[ i_1[3] ]]】[[ i_1[4] ]]</span><br/>[[ i_1[5] ]]</pre></td>
+                    <td v-else><pre>[[ i_1[5] ]]</pre></td>
+                    <td>[[ i_1[6] ]]</td>
                     <td>
                         <router-link :to="`/MEMO_FORM/${i_1[0]}`"><button>更新</button></router-link>
                     </td>

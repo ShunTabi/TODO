@@ -8,13 +8,13 @@
     </nav>
     <nav>
         　作業名：
-        <select v-model="TODO_HEADER_ID" @change="CHANGE_nav_TODO_HEADER_ID()">
+        <select v-model="TODO_HEADER_ID" @change="axios_GET()">
             <option value="0">ALL</option>
             <option v-for="i_TODO_HEADER in values_TODO_HEADER" v-bind:value="i_TODO_HEADER[0]">[[ i_TODO_HEADER[1] ]]
             </option>
         </select>
         　課題：
-        <input type="text" class="value_TODO_DETAIL_CONTENT" v-model="value_TODO_DETAIL_CONTENT"
-            @change="CHANGE_nav_TODO_DETAIL_CONTENT" maxlength="5" placeholder="5字まで">
+        <input type="text" class="TEST_BOX" v-model="value_TODO_DETAIL_CONTENT" @change="axios_GET()" maxlength="5"
+            placeholder="5字まで">
     </nav>
 </section>

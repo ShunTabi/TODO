@@ -7,13 +7,13 @@
         <router-link to="/TODO_HEADER_TOP_DEL/1">作業_ゴミ箱</router-link><br />
     </nav>
     <nav>
-        　作業名：
-        <select v-model="GOAL_ID" @change="CHANGE_nav_GOAL_ID()">
+        　目標名：
+        <select v-model="GOAL_ID" @change="axios_GET()">
             <option value="0">ALL</option>
             <option v-for="i_GOAL in values_GOAL" v-bind:value="i_GOAL[0]">[[ i_GOAL[1] ]]</option>
         </select>
         　優先度：
-        <select v-model="PRIOR_ID" @change="CHANGE_nav_PRIOR_ID()">
+        <select v-model="PRIOR_ID" @change="axios_GET()">
             <option value="0">ALL</option>
             <option v-for="i_PRIOR in values_PRIOR" v-bind:value="i_PRIOR[0]">[[ i_PRIOR[1] ]]</option>
         </select>

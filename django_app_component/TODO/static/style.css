@@ -50,11 +50,19 @@ textarea {
     display: inline;
 }
 
-.value_TODO_DETAIL_CONTENT {
+.TEST_BOX {
     height: 22px;
     font-size: 11px;
 }
 
-.span_highlight {
-    color: red;
+.TODO_DETAIL_UNDERLINE{
+    text-decoration:underline;
+}
+
+.GREEN_COLOR{
+    color:darkgreen;
+}
+
+.RED_COLOR{
+    color:RED;
 }

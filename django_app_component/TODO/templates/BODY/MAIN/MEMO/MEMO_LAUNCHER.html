@@ -7,12 +7,20 @@
         <router-link to="/MEMO_TOP_DEL/1">メモ_ゴミ箱</router-link><br />
     </nav>
     <nav>
-        　課題名：
-        <select v-model="TODO_DETAIL_ID" @change="CHANGE_nav_TODO_DETAIL_ID()">
+        　目標名：
+        <select v-model="GOAL_ID" @change="axios_GET()">
             <option value="0">ALL</option>
-            <option v-for="i_TODO_DETAIL in values_TODO_DETAIL" v-bind:value="i_TODO_DETAIL[0]">[[ i_TODO_DETAIL[1] ]]</option>
+            <option v-for="i_GOAL in values_GOAL" v-bind:value="i_GOAL[0]">[[ i_GOAL[1] ]]
+            </option>
         </select>
-        　メモ：
-        <input type="text" class="value_MEMO_NOTE" v-model="value_MEMO_NOTE" @change="CHANGE_nav_MEMO_NOTE()" maxlength="5" placeholder="5字まで"> 
+        　作業名：
+        <select v-model="TODO_HEADER_ID" @change="axios_GET()">
+            <option value="0">ALL</option>
+            <option v-for="i_TODO_HEADER in values_TODO_HEADER" v-bind:value="i_TODO_HEADER[0]">[[ i_TODO_HEADER[1] ]]
+            </option>
+        </select>
+        　課題/メモ：
+        <input type="text" class="TEST_BOX" v-model="value_MEMO_CONTENT" @change="axios_GET()" maxlength="5"
+            placeholder="5字まで">
     </nav>
 </section>

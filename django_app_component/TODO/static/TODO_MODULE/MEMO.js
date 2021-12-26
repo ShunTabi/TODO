@@ -1,7 +1,6 @@
 "use strict";
 //インポート
 import { sql_limit, url } from "./conf.js";
-import { COM_highlight } from "./COM.js";
 const l_sql_limit = sql_limit - 3;
 //コンポーネント
 const MEMO_TOP = {
@@ -15,23 +14,25 @@ const MEMO_TOP = {
                 title: "メモ一覧",
                 page_max: null,
                 nav_menu: false,
-                TODO_DETAIL_ID: 0,
-                values_TODO_DETAIL: [
-                    []
-                ],
-                value_MEMO_NOTE: "",
+                TODO_HEADER_ID: 0,
+                values_TODO_HEADER: [[]],
+                GOAL_ID: 0,
+                values_GOAL: [[]],
+                value_MEMO_CONTENT: "",
             }
         },
         methods: {
             axios_GET: function () {
                 const params = new URLSearchParams();
-                params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
-                params.append("value_MEMO_NOTE", this.value_MEMO_NOTE);
+                params.append("GOAL_ID", this.GOAL_ID);
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
+                params.append("value_MEMO_CONTENT", this.value_MEMO_CONTENT);
                 axios.get(`${url}TODO/MEMO_TOP/${this.$route.params.PAGE}`, { "params": params })
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / l_sql_limit);
-                        this.values_TODO_DETAIL = res.data.values_TODO_DETAIL;
+                        this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        this.values_GOAL = res.data.values_GOAL;
                     })
             },
             axios_DEL: function (tg) {
@@ -46,14 +47,6 @@ const MEMO_TOP = {
             },
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
-            },
-            CHANGE_nav_TODO_DETAIL_ID() {
-                this.value_MEMO_NOTE = "";
-                this.axios_GET();
-            },
-            CHANGE_nav_MEMO_NOTE() {
-                this.TODO_DETAIL_ID = 0;
-                this.axios_GET();
             },
         },
         created: function () {
@@ -75,14 +68,15 @@ const MEMO_TOP_DEL = {
                 nav_menu: false,
                 TODO_DETAIL_ID: 0,
                 values_TODO_DETAIL: [[]],
-                value_MEMO_NOTE: "",
+                value_MEMO_CONTENT: "",
             }
         },
         methods: {
             axios_GET: function () {
                 const params = new URLSearchParams();
-                params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
-                params.append("value_MEMO_NOTE", this.value_MEMO_NOTE);
+                params.append("GOAL_ID", this.GOAL_ID);
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
+                params.append("value_MEMO_CONTENT", this.value_MEMO_CONTENT);
                 axios.get(`${url}TODO/MEMO_TOP_DEL/${this.$route.params.PAGE}`, { "params": params })
                     .then(res => {
                         this.values = res.data.values;
@@ -103,14 +97,6 @@ const MEMO_TOP_DEL = {
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
             },
-            CHANGE_nav_TODO_DETAIL_ID() {
-                this.value_MEMO_NOTE = "";
-                this.axios_GET();
-            },
-            CHANGE_nav_MEMO_NOTE() {
-                this.TODO_DETAIL_ID = 0;
-                this.axios_GET();
-            },
         },
         created: function () {
             this.axios_GET();
@@ -126,13 +112,13 @@ const MEMO_FORM = {
         data: function () {
             return {
                 MEMO_ID: null,
-                TODO_DETAIL_ID: null,
-                MEMO_NOTE: null,
+                TODO_HEADER_ID: 0,
+                values_TODO_HEADER: [[]],
+                TODO_DETAIL_ID: 0,
+                values_TODO_DETAIL: [[]],
+                MEMO_CONTENT: null,
                 MEMO_DATE: null,
                 VISIBLESTATUS: 0,
-                values_TODO_DETAIL_INPROGRESS: [
-                    []
-                ],
                 button_name: "登録",
                 title: "メモフォーム",
             }
@@ -145,13 +131,15 @@ const MEMO_FORM = {
                     });
                 axios.get(`${url}TODO/MEMO_FORM/`)
                     .then(res => {
-                        this.values_TODO_DETAIL_INPROGRESS = res.data.values_TODO_DETAIL_INPROGRESS;
+                        this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        this.values_TODO_DETAIL = res.data.values_TODO_DETAIL;
                     });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
-                params.append("MEMO_NOTE", this.MEMO_NOTE);
+                params.append("MEMO_CONTENT", this.MEMO_CONTENT);
                 params.append("MEMO_DATE", this.MEMO_DATE);
                 params.append("MEMO_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/MEMO_FORM/`, params)
@@ -170,13 +158,14 @@ const MEMO_FORM_UPDATE = {
         delimiters: ["[[", "]]"],
         data: function () {
             return {
-                TODO_DETAIL_ID: null,
-                MEMO_NOTE: null,
+                MEMO_ID: null,
+                TODO_HEADER_ID: 0,
+                values_TODO_HEADER: [[]],
+                TODO_DETAIL_ID: 0,
+                values_TODO_DETAIL: [[]],
+                MEMO_CONTENT: null,
                 MEMO_DATE: null,
                 VISIBLESTATUS: 0,
-                values_TODO_DETAIL_INPROGRESS: [
-                    []
-                ],
                 button_name: "更新",
                 title: "メモフォーム",
             }
@@ -185,19 +174,22 @@ const MEMO_FORM_UPDATE = {
             axios_GET: function () {
                 axios.get(`${url}TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`)
                     .then(res => {
+                        this.values_TODO_HEADER = res.data.values_TODO_HEADER;
+                        this.values_TODO_DETAIL = res.data.values_TODO_DETAIL;
                         this.MEMO_ID = res.data.values[0][0];
-                        this.TODO_DETAIL_ID = res.data.values[0][1];
-                        this.MEMO_NOTE = res.data.values[0][2];
-                        this.MEMO_DATE = res.data.values[0][3];
-                        this.VISIBLESTATUS = res.data.values[0][4];
-                        this.values_TODO_DETAIL_INPROGRESS = res.data.values_TODO_DETAIL_INPROGRESS;
+                        this.TODO_HEADER_ID = res.data.values[0][1];
+                        this.TODO_DETAIL_ID = res.data.values[0][2];
+                        this.MEMO_CONTENT = res.data.values[0][3];
+                        this.MEMO_DATE = res.data.values[0][4];
+                        this.VISIBLESTATUS = res.data.values[0][5];
                     })
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
                 params.append("MEMO_ID", this.MEMO_ID);
+                params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
-                params.append("MEMO_NOTE", this.MEMO_NOTE);
+                params.append("MEMO_CONTENT", this.MEMO_CONTENT);
                 params.append("MEMO_DATE", this.MEMO_DATE);
                 params.append("MEMO_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/MEMO_FORM/${this.$route.params.MEMO_ID}`, params)

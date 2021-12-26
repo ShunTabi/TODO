@@ -44,12 +44,6 @@ const TODO_DETAIL_TOP = {
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
             },
-            CHANGE_nav_TODO_HEADER_ID() {
-                this.axios_GET();
-            },
-            CHANGE_nav_TODO_DETAIL_CONTENT() {
-                this.axios_GET();
-            },
         },
         created: function () {
             this.axios_GET();
@@ -97,12 +91,6 @@ const TODO_DETAIL_TOP_DEL = {
             },
             nav_menu_if: function () {
                 this.nav_menu = !this.nav_menu;
-            },
-            CHANGE_nav_TODO_HEADER_ID() {
-                this.axios_GET();
-            },
-            CHANGE_nav_TODO_DETAIL_CONTENT() {
-                this.axios_GET();
             },
         },
         created: function () {

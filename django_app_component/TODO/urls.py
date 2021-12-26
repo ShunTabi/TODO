@@ -1,5 +1,4 @@
-from . import urls_GENRE, urls_MAIN,urls_GOAL,urls_TODO_HEADER, urls_TODO_DETAIL
-# , urls_MEMO
+from . import urls_GENRE, urls_MAIN,urls_GOAL,urls_TODO_HEADER, urls_TODO_DETAIL, urls_MEMO
 
 urlpatterns = [
     # メイン
@@ -30,9 +29,9 @@ urlpatterns = [
     urls_TODO_DETAIL.TODO_DETAIL_TOP_DEL,
     urls_TODO_DETAIL.TODO_DETAIL_DEL,
     # メモ
-    # urls_MEMO.MEMO_TOP,
-    # urls_MEMO.MEMO_FORM,
-    # urls_MEMO.MEMO_FORM_UPDATE,
-    # urls_MEMO.MEMO_TOP_DEL,
-    # urls_MEMO.MEMO_DEL,
+    urls_MEMO.MEMO_TOP,
+    urls_MEMO.MEMO_FORM,
+    urls_MEMO.MEMO_FORM_UPDATE,
+    urls_MEMO.MEMO_TOP_DEL,
+    urls_MEMO.MEMO_DEL,
 ]
