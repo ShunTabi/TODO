@@ -1,0 +1,35 @@
+{% load static %}
+<script type="text/x-template" id="TODO_HEADER_TOP">
+    <section>
+        <h4>[[title]]</h4>
+        {% include 'BODY/MAIN/TODO_HEADER/TODO_HEADER_LAUNCHER.html' %}
+        {% include 'BODY/MAIN/COM/PAGE_NAV.html' %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th hidden>TODO_HEADER_ID</th>
+                    <th>目標</th>
+                    <th>作業</th>
+                    <th>優先度</th>
+                    <th>開始日</th>
+                    <th>期日</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="i_1,index in values">
+                    <td hidden>[[ i_1[0] ]]</td>
+                    <td>[[ i_1[1] ]]</td>
+                    <td>[[ i_1[2] ]]</td>
+                    <td>[[ i_1[3] ]]</td>
+                    <td>[[ i_1[4] ]]</td>
+                    <td>[[ i_1[5] ]]</td>
+                    <td>
+                        <router-link :to="`/TODO_HEADER_FORM/${i_1[0]}`"><button>更新</button></router-link>
+                    </td>
+                    <td><button @click="axios_DEL( i_1[0] )">削除</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</script>
