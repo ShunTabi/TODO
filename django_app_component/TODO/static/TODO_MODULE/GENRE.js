@@ -10,8 +10,8 @@ const GENRE_TOP = {
         data: function () {
             return {
                 values: null,
-                title: "種別一覧",
                 page_max: null,
+                title: "種別一覧",
                 nav_menu: false,
             }
         },
@@ -98,6 +98,7 @@ const GENRE_FORM = {
                 VISIBLESTATUS: 0,
                 button_name: "登録",
                 title: "種別フォーム",
+                values: null,
             }
         },
         methods: {
@@ -106,6 +107,10 @@ const GENRE_FORM = {
                     .then(res => {
                         this.GENRE_DATE = res.data.values;
                     });
+                axios.get(`${url}TODO/GENRE_TOP/1`)
+                    .then(res => {
+                        this.values = res.data.values;
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
@@ -113,7 +118,7 @@ const GENRE_FORM = {
                 params.append("GENRE_DATE", this.GENRE_DATE);
                 params.append("GENRE_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/GENRE_FORM/`, params)
-                    .then(res => { })
+                    .then(res => { this.axios_GET() });
             },
         },
         created: function () {
@@ -134,6 +139,7 @@ const GENRE_FORM_UPDATE = {
                 VISIBLESTATUS: null,
                 button_name: "更新",
                 title: "種別フォーム",
+                values: null,
             }
         },
         methods: {
@@ -144,7 +150,11 @@ const GENRE_FORM_UPDATE = {
                         this.GENRE_NAME = res.data.values[0][1];
                         this.GENRE_DATE = res.data.values[0][2];
                         this.VISIBLESTATUS = res.data.values[0][3];
-                    })
+                    });
+                axios.get(`${url}TODO/GENRE_TOP/1`)
+                    .then(res => {
+                        this.values = res.data.values;
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
@@ -153,7 +163,7 @@ const GENRE_FORM_UPDATE = {
                 params.append("GENRE_DATE", this.GENRE_DATE);
                 params.append("GENRE_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/GENRE_FORM/${this.$route.params.GENRE_ID}`, params)
-                    .then(res => { })
+                    .then(res => { this.axios_GET() });
             },
         },
         created: function () {

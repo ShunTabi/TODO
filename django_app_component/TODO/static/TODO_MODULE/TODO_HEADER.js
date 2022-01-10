@@ -9,18 +9,14 @@ const TODO_HEADER_TOP = {
         delimiters: ["[[", "]]"],
         data: function () {
             return {
-                values: null,
                 title: "作業一覧",
+                values: null,
                 page_max: null,
                 nav_menu: false,
                 PRIOR_ID: 0,
                 GOAL_ID: 0,
-                values_GOAL: [
-                    []
-                ],
-                values_PRIOR: [
-                    []
-                ],
+                values_GOAL: [[]],
+                values_PRIOR: [[]],
             }
         },
         methods: {
@@ -34,7 +30,7 @@ const TODO_HEADER_TOP = {
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                         this.values_GOAL = res.data.values_GOAL;
                         this.values_PRIOR = res.data.values_PRIOR;
-                    })
+                    });
             },
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/TODO_HEADER_DEL/${tg}`)
@@ -88,7 +84,7 @@ const TODO_HEADER_TOP_DEL = {
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
                         this.values_GOAL = res.data.values_GOAL;
                         this.values_PRIOR = res.data.values_PRIOR;
-                    })
+                    });
             },
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/TODO_HEADER_DEL/${tg}`)
@@ -127,6 +123,8 @@ const TODO_HEADER_FORM = {
                 values_GOAL: [[]],
                 button_name: "登録",
                 title: "作業フォーム",
+                values: null,
+                page_max: null,
             }
         },
         methods: {
@@ -140,7 +138,13 @@ const TODO_HEADER_FORM = {
                     .then(res => {
                         this.values_PRIOR = res.data.values_PRIOR;
                         this.values_GOAL = res.data.values_GOAL;
-
+                    });
+                const params = new URLSearchParams();
+                params.append("GOAL_ID", 0);
+                params.append("PRIOR_ID", 0);
+                axios.get(`${url}TODO/TODO_HEADER_TOP/1`, { "params": params })
+                    .then(res => {
+                        this.values = res.data.values;
                     });
             },
             axios_POST: function () {
@@ -179,6 +183,7 @@ const TODO_HEADER_FORM_UPDATE = {
                 values_GOAL: [[]],
                 button_name: "更新",
                 title: "作業フォーム",
+                values: null,
             }
         },
         methods: {
@@ -194,7 +199,14 @@ const TODO_HEADER_FORM_UPDATE = {
                         this.VISIBLESTATUS = res.data.values[0][6];
                         this.values_PRIOR = res.data.values_PRIOR;
                         this.values_GOAL = res.data.values_GOAL;
-                    })
+                    });
+                const params = new URLSearchParams();
+                params.append("GOAL_ID", 0);
+                params.append("PRIOR_ID", 0);
+                axios.get(`${url}TODO/TODO_HEADER_TOP/1`, { "params": params })
+                    .then(res => {
+                        this.values = res.data.values;
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();

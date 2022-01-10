@@ -29,7 +29,7 @@ const TODO_DETAIL_TOP = {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / l_sql_limit);
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
-                    })
+                    });
             },
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/TODO_DETAIL_DEL/${tg}`)
@@ -77,13 +77,13 @@ const TODO_DETAIL_TOP_DEL = {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / l_sql_limit);
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
-                    })
+                    });
             },
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/TODO_DETAIL_DEL/${tg}`)
                     .then(res => {
                         this.axios_GET();
-                    })
+                    });
             },
             PAGE_BUTTON: function (tg) {
                 this.$router.push(`/TODO_DETAIL_TOP_DEL/${parseInt(this.$route.params.PAGE) + tg}`);
@@ -116,6 +116,7 @@ const TODO_DETAIL_FORM = {
                 values_STATUS: [[]],
                 button_name: "登録",
                 title: "課題フォーム",
+                values: null,
             }
         },
         methods: {
@@ -129,6 +130,13 @@ const TODO_DETAIL_FORM = {
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
                         this.values_STATUS = res.data.values_STATUS;
                     });
+                const params = new URLSearchParams();
+                params.append("TODO_HEADER_ID", 0);
+                params.append("TODO_DETAIL_CONTENT", "");
+                axios.get(`${url}TODO/TODO_DETAIL_TOP/1`, { "params": params })
+                    .then(res => {
+                        this.values = res.data.values;
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
@@ -138,7 +146,7 @@ const TODO_DETAIL_FORM = {
                 params.append("STATUS_ID", this.STATUS_ID);
                 params.append("TODO_DETAIL_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/TODO_DETAIL_FORM/`, params)
-                    .then(res => { })
+                    .then(res => { this.axios_GET() });
             },
         },
         created: function () {
@@ -163,6 +171,7 @@ const TODO_DETAIL_FORM_UPDATE = {
                 values_STATUS: [[]],
                 button_name: "更新",
                 title: "課題フォーム",
+                values: null,
             }
         },
         methods: {
@@ -177,7 +186,14 @@ const TODO_DETAIL_FORM_UPDATE = {
                         this.VISIBLESTATUS = res.data.values[0][5];
                         this.values_TODO_HEADER = res.data.values_TODO_HEADER;
                         this.values_STATUS = res.data.values_STATUS;
-                    })
+                    });
+                const params = new URLSearchParams();
+                params.append("TODO_HEADER_ID", 0);
+                params.append("TODO_DETAIL_CONTENT", "");
+                axios.get(`${url}TODO/TODO_DETAIL_TOP/1`, { "params": params })
+                    .then(res => {
+                        this.values = res.data.values;
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
@@ -188,7 +204,7 @@ const TODO_DETAIL_FORM_UPDATE = {
                 params.append("STATUS_ID", this.STATUS_ID);
                 params.append("TODO_DETAIL_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/TODO_DETAIL_FORM/${this.$route.params.TODO_DETAIL_ID}`, params)
-                    .then(res => { })
+                    .then(res => { this.axios_GET() });
             },
         },
         created: function () {

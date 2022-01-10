@@ -8,7 +8,7 @@
     </nav>
     <nav>
         　目標名：
-        <select v-model="GOAL_ID" @change="axios_GET()">
+        <select v-model="GOAL_ID" @change="GOAL_change()">
             <option value="0">ALL</option>
             <option v-for="i_GOAL in values_GOAL" v-bind:value="i_GOAL[0]">[[ i_GOAL[1] ]]
             </option>

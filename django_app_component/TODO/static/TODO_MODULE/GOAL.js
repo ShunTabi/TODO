@@ -10,8 +10,8 @@ const GOAL_TOP = {
         data: function () {
             return {
                 values: null,
-                title: "目標一覧",
                 page_max: null,
+                title: "目標一覧",
                 nav_menu: false,
             }
         },
@@ -21,7 +21,7 @@ const GOAL_TOP = {
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
-                    })
+                    });
             },
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/GOAL_DEL/${tg}`)
@@ -63,7 +63,7 @@ const GOAL_TOP_DEL = {
                     .then(res => {
                         this.values = res.data.values;
                         this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
-                    })
+                    });
             },
             axios_DEL: function (tg) {
                 axios.post(`${url}TODO/GOAL_DEL/${tg}`)
@@ -96,11 +96,11 @@ const GOAL_FORM = {
                 GENRE_ID: null,
                 GOAL_DATE: null,
                 VISIBLESTATUS: 0,
-                values_GENRE: [
-                    []
-                ],
+                values_GENRE: [[]],
                 button_name: "登録",
                 title: "目標フォーム",
+                values: null,
+                page_max: null,
             }
         },
         methods: {
@@ -113,6 +113,11 @@ const GOAL_FORM = {
                     .then(res => {
                         this.values_GENRE = res.data.values_GENRE;
                     });
+                axios.get(`${url}TODO/GOAL_TOP/1`)
+                    .then(res => {
+                        this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
@@ -121,7 +126,7 @@ const GOAL_FORM = {
                 params.append("GOAL_DATE", this.GOAL_DATE);
                 params.append("GOAL_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/GOAL_FORM/`, params)
-                    .then(res => { })
+                    .then(res => { this.axios_GET() });
             },
         },
         created: function () {
@@ -141,11 +146,11 @@ const GOAL_FORM_UPDATE = {
                 GENRE_ID: null,
                 GOAL_DATE: null,
                 VISIBLESTATUS: null,
-                values_GENRE: [
-                    []
-                ],
+                values_GENRE: [[]],
                 button_name: "更新",
                 title: "目標フォーム",
+                values: null,
+                page_max: null,
             }
         },
         methods: {
@@ -158,8 +163,12 @@ const GOAL_FORM_UPDATE = {
                         this.GOAL_DATE = res.data.values[0][3];
                         this.VISIBLESTATUS = res.data.values[0][4];
                         this.values_GENRE = res.data.values_GENRE;
-                        console.log(res);
-                    })
+                    });
+                axios.get(`${url}TODO/GOAL_TOP/1`)
+                    .then(res => {
+                        this.values = res.data.values;
+                        this.page_max = Math.ceil(res.data.values_COUNT / sql_limit);
+                    });
             },
             axios_POST: function () {
                 const params = new URLSearchParams();
@@ -168,7 +177,7 @@ const GOAL_FORM_UPDATE = {
                 params.append("GOAL_DATE", this.GOAL_DATE);
                 params.append("GOAL_VISIBLESTATUS", this.VISIBLESTATUS);
                 axios.post(`${url}TODO/GOAL_FORM/${this.$route.params.GOAL_ID}`, params)
-                    .then(res => { })
+                    .then(res => { this.axios_GET() });
             },
         },
         created: function () {

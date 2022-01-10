@@ -22,5 +22,22 @@
                 </tr>
             </tbody>
         </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th hidden>GENRE_ID</th>
+                    <th>種別名</th>
+                    <th>日付</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="i_1,index in values">
+                    <td hidden>[[ i_1[0] ]]</td>
+                    <td>[[ i_1[1] ]]</td>
+                    <td>[[ i_1[2] ]]</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 </script>
