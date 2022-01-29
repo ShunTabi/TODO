@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { axios_GET, axios_POST, ZeroPadding, isShowTrue, } from './COM.js';
+import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, par_null, len_search_key, mes_placeholder, } from './conf.js';
 //コンポーネント
 const TODO_HEADER_ = {
@@ -44,9 +44,12 @@ const TODO_HEADER_ = {
         },
         methods: {
             l_axios_GET: function () {
+                if (this.key_TODO_HEADER_NAME == "") {
+                    this.key_TODO_HEADER_NAME = par_null;
+                };
                 axios_GET(`TODO/TODO_HEADER_TOP/${this.$route.params.page}/${this.key_TODO_HEADER_NAME}`, "", (res) => {
                     this.values = res.data.values;
-                    this.max_page = Math.ceil(res.data.count / res.data.sql_limit);
+                    this.max_page = checkPage(Math.ceil(res.data.count / res.data.sql_limit));
                 });
             },
             l_axios_GET_FORM: function () {
@@ -69,9 +72,6 @@ const TODO_HEADER_ = {
                 });
             },
             change_key_TODO_HEADER_NAME: function () {
-                if (this.key_TODO_HEADER_NAME == "") {
-                    this.key_TODO_HEADER_NAME = par_null;
-                };
                 this.$router.push(`/TODO_HEADER_/${this.$route.params.par}/1/${this.key_TODO_HEADER_NAME}`);
             },
             next_page: function () {
@@ -100,13 +100,13 @@ const TODO_HEADER_ = {
                 if (this.TODO_HEADER_ID != null) {
                     params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                     axios_POST("TODO/TODO_HEADER_UPDATE/", params, () => {
-                        this.l_axios_GET();
                         this.clearForm();
+                        this.l_axios_GET();
                     });
                 } else {
                     axios_POST("TODO/TODO_HEADER_FORM/", params, () => {
-                        this.l_axios_GET();
                         this.clearForm();
+                        this.l_axios_GET();
                     });
                 }
             },

@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { axios_GET, axios_POST, ZeroPadding, isShowTrue, } from './COM.js';
+import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, } from './conf.js';
 //コンポーネント
 const GOAL_ = {
@@ -74,13 +74,13 @@ const GOAL_ = {
                 if (this.GOAL_ID != null) {
                     params.append("GOAL_ID", this.GOAL_ID);
                     axios_POST("TODO/GOAL_UPDATE/", params, () => {
-                        this.l_axios_GET();
                         this.clearForm();
+                        this.l_axios_GET();
                     });
                 } else {
                     axios_POST("TODO/GOAL_FORM/", params, () => {
-                        this.l_axios_GET();
                         this.clearForm();
+                        this.l_axios_GET();
                     });
                 }
             },

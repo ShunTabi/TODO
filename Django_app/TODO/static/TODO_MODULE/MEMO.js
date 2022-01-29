@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { axios_GET, axios_POST, ZeroPadding, isShowTrue, } from './COM.js';
+import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, par_null, len_search_key, mes_placeholder, } from './conf.js';
 //コンポーネント
 const MEMO_ = {
@@ -45,9 +45,12 @@ const MEMO_ = {
         },
         methods: {
             l_axios_GET: function () {
+                if (this.key_MEMO == "") {
+                    this.key_MEMO = par_null;
+                };
                 axios_GET(`TODO/MEMO_TOP/${this.$route.params.page}/${this.key_MEMO}`, "", (res) => {
                     this.values = res.data.values;
-                    this.max_page = Math.ceil(res.data.count / res.data.sql_limit);
+                    this.max_page = checkPage(Math.ceil(res.data.count / res.data.sql_limit));
                 });
             },
             l_axios_GET_FORM: function () {
@@ -77,9 +80,6 @@ const MEMO_ = {
                 });
             },
             change_key_MEMO: function () {
-                if (this.key_MEMO == "") {
-                    this.key_MEMO = par_null;
-                };
                 this.$router.push(`/MEMO_/${this.$route.params.par}/1/${this.key_MEMO}`);
             },
             next_page: function () {

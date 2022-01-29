@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { axios_GET, axios_POST, ZeroPadding, isShowTrue, } from './COM.js';
+import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, par_null, len_search_key, mes_placeholder, } from './conf.js';
 //コンポーネント
 const TODO_DETAIL_ = {
@@ -41,6 +41,7 @@ const TODO_DETAIL_ = {
                 //SEARCH PARAMETERS
                 key_TODO: null,
                 key_STATUS_ID: null,
+                keyValeus_STATUS: [[]],
                 len_search_key: len_search_key,
                 mes_placeholder: mes_placeholder,
                 par_null: par_null,
@@ -48,10 +49,13 @@ const TODO_DETAIL_ = {
         },
         methods: {
             l_axios_GET: function () {
+                if (this.key_TODO == "") {
+                    this.key_TODO = par_null;
+                };
                 axios_GET(`TODO/TODO_DETAIL_TOP/${this.$route.params.page}/${this.key_TODO}/${this.key_STATUS_ID}`, "", (res) => {
                     this.values = res.data.values;
-                    this.max_page = Math.ceil(res.data.count / res.data.sql_limit);
-                    this.values_STATUS = res.data.values_STATUS;
+                    this.max_page = checkPage(Math.ceil(res.data.count / res.data.sql_limit));
+                    this.keyValeus_STATUS = res.data.values_STATUS;
                 });
             },
             l_axios_GET_FORM: function () {
@@ -83,13 +87,9 @@ const TODO_DETAIL_ = {
                 });
             },
             change_key_TODO: function () {
-                if (this.key_TODO == "") {
-                    this.key_TODO = par_null;
-                };
                 this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/1/${this.key_TODO}/${this.$route.params.key_STATUS_ID}`);
             },
             change_key_STATUS_ID: function () {
-                window.alert(this.key_STATUS_ID);
                 this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/1/${this.$route.params.key_TODO}/${this.key_STATUS_ID}`);
             },
             next_page: function () {

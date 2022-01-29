@@ -1,6 +1,6 @@
 "use strict";
 //インポート
-import { axios_GET, axios_POST, ZeroPadding, isShowTrue, } from './COM.js';
+import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, } from './conf.js';
 //コンポーネント
 const GENRE_ = {
@@ -34,7 +34,7 @@ const GENRE_ = {
             l_axios_GET: function () {
                 axios_GET(`TODO/GENRE_TOP/${this.$route.params.page}`, "", (res) => {
                     this.values = res.data.values;
-                    this.max_page = Math.ceil(res.data.count / res.data.sql_limit);
+                    this.max_page = checkPage(Math.ceil(res.data.count / res.data.sql_limit));
                 });
             },
             l_axios_GET_UPDATE: function (GENRE_ID) {

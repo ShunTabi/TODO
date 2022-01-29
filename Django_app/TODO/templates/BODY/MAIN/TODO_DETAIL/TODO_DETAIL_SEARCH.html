@@ -9,7 +9,7 @@
             <li>
                 ▼進捗：<select v-model="key_STATUS_ID" @change="change_key_STATUS_ID">
                     <option v-bind:value="par_null">ALL</option>
-                    <option v-for="v in values_STATUS" v-bind:value="v[0]">[[ v[1] ]]</option>
+                    <option v-for="v in keyValeus_STATUS" v-bind:value="v[0]">[[ v[1] ]]</option>
                 </select>
             </li>
         </ul>

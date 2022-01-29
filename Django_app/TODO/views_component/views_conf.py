@@ -1,8 +1,8 @@
 from datetime import datetime
 
 
-DBNAME = "DATABASE_DEV.DB"
-# DBNAME = "DATABASE_WK.DB"
+# DBNAME = "DATABASE_DEV.DB"
+DBNAME = "DATABASE_WK.DB"
 #表示件数
 sql_limit = 7
 #非表示

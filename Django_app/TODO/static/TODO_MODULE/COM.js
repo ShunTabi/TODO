@@ -1,5 +1,5 @@
 "use strict";
-import { default_url, sec, len_charactor, len_integer } from "./conf.js";
+import { default_url, sec, len_charactor, len_integer, } from "./conf.js";
 
 //GET通信
 const axios_GET = (url, params, callback) => {
@@ -64,4 +64,11 @@ const isShowTrue = (par, callback) => {
     callback(params);
 };
 
-export { axios_GET, axios_POST, sendMessage, AppStartup, ZeroPadding, isShowTrue, }
+const checkPage = (max_page) => {
+    if (max_page == 0) {
+        max_page = 1
+    }
+    return max_page;
+}
+
+export { axios_GET, axios_POST, sendMessage, AppStartup, ZeroPadding, isShowTrue, checkPage, }
