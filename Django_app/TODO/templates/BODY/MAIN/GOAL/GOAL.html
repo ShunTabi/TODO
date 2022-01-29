@@ -1,0 +1,8 @@
+{% load static %}
+<script type="text/x-template" id="GOAL_">
+    <section>
+        <h2>[[ Lancher_header ]]</h2>
+        <div v-show="GOAL_FORM">{% include 'BODY\MAIN\GOAL\GOAL_FORM.html' %}</div>
+        <div v-show="GOAL_TOP">{% include 'BODY\MAIN\GOAL\GOAL_TOP.html' %}</div>
+    </section>
+</script>

@@ -1,0 +1,48 @@
+{% load static %}
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>項目</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>目標名</td>
+                <td><select v-model="GOAL_ID" @change="l_axios_GET_FORM()">
+                        <option v-for="v in values_GOAL" v-bind:value="v[0]">[[ v[1] ]]
+                        </option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>作業名</td>
+                <td><select v-model="TODO_HEADER_ID">
+                        <option v-for="v in values_TODO_HEADER" v-bind:value="v[0]">[[ v[1] ]]</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>課題名</td>
+                <td><textarea v-model="TODO_DETAIL_NAME"></textarea></td>
+            </tr>
+            <tr>
+                <td>進捗度</td>
+                <td><select v-model="STATUS_ID">
+                        <option v-for="v in values_STATUS" v-bind:value="v[0]">[[ v[1] ]]</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>開始日</td>
+                <td><input type="text" v-model="TODO_DETAIL_STARTDATE"></td>
+            </tr>
+            <tr>
+                <td>納期</td>
+                <td><input type="text" v-model="TODO_DETAIL_ENDDATE"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button @click="l_axios_POST()">[[ button_name ]]</button></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

@@ -1,5 +1,0 @@
-{% load static %}
-<section>
-    <img src="{% static 'icon\list.svg' %}" v-if="!nav_menu" width="25" height="25" @click="nav_menu_if" class="nav_menu_button button_cursor" />
-    <img src="{% static 'icon\x-circle.svg' %}" v-if="nav_menu" width="25" height="25" @click="nav_menu_if" class="nav_menu_button button_cursor" />
-</section>

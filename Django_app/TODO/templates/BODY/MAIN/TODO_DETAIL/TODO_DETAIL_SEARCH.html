@@ -1,0 +1,17 @@
+{% load static %}
+<section>
+    <nav class="search_nav">
+        <ul>
+            <li>
+                ▼作業/課題：<input type="text" v-bind:maxlength="len_search_key" v-bind:placeholder="mes_placeholder"
+                    v-model="key_TODO" @change="change_key_TODO">
+            </li>
+            <li>
+                ▼進捗：<select v-model="key_STATUS_ID" @change="change_key_STATUS_ID">
+                    <option v-bind:value="par_null">ALL</option>
+                    <option v-for="v in values_STATUS" v-bind:value="v[0]">[[ v[1] ]]</option>
+                </select>
+            </li>
+        </ul>
+    </nav>
+</section>

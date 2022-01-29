@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+{% include 'HEAD\HEAD.html' %}
+
+<body>
+    <h1>Django works!</h1>
+    <img style="position: fixed;top: 25%;left: 25%;" src="{% static 'icon\logo-python.svg' %}" width="50%"
+        height="50%" />
+    <script type="module" src="{% static 'TODO_MODULE\startup.js' %}"></script>
+</body>
+
+</html>

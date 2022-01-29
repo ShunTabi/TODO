@@ -1,0 +1,17 @@
+{% load static %}
+<section class="Lancher_SECTION">
+    <img src="{% static 'icon\list.svg' %}" width="25" height="25" @click="ONOFF_Lancher_SECTION_MAIN" />
+    <section class="Lancher_SECTION_MAIN animate__animated animate__bounceInDown" v-show=Lancher_SECTION_MAIN_status>
+        <section class="Lancher_SECTION_MAIN_FIRST">
+            <ul>
+                <li v-for="h,h_index in LANCHER_HEADERs">
+                    <a>▼[[ h ]]</a>
+                    <ul>
+                        <li v-for="d in LANCHER_DETAILs[h_index]">
+                            　→<router-link :to="d[1]">[[ d[0] ]]</router-link>
+                        </li>
+                    </ul>
+                </li>
+        </section>
+    </section>
+</section>

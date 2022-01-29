@@ -1,0 +1,33 @@
+{% load static %}
+<section>
+    <div v-show="TODO_HEADER_SEARCH">{% include 'BODY\MAIN\TODO_HEADER\TODO_HEADER_SEARCH.html' %}</div>
+    <div>{% include 'BODY\MAIN\COM\page.html' %}</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th v-show="isShow">種別名</th>
+                <th>目標名</th>
+                <th>作業名</th>
+                <th>優先度</th>
+                <th>期日</th>
+                <th v-show="TODO_HEADER_FORM"></th>
+                <th v-show="TODO_HEADER_FORM"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in values">
+                <td>[[ l_ZeroPadding(i[0]) ]]</td>
+                <td v-show="isShow">[[ i[1] ]]</td>
+                <td>[[ i[2] ]]</td>
+                <td>[[ i[3] ]]</td>
+                <td>[[ i[4] ]]</td>
+                <td>[[ i[5] ]]</td>
+                <td v-show="TODO_HEADER_FORM"><button @click="l_axios_GET_UPDATE( i[0] )">[[ button_names[1] ]]</button>
+                </td>
+                <td v-show="TODO_HEADER_FORM"><button @click="l_axios_POST_DEL( i[0] )">[[ button_names[2] ]]</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,37 @@
+{% load static %}
+<section>
+    <div v-show="TODO_DETAIL_SEARCH">{% include 'BODY\MAIN\TODO_DETAIL\TODO_DETAIL_SEARCH.html' %}</div>
+    <div>{% include 'BODY\MAIN\COM\page.html' %}</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th v-show="isShow">種別名</th>
+                <th>目標名</th>
+                <th>作業名</th>
+                <th>進捗/課題</th>
+                <th>開始日</th>
+                <th>期日</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in values">
+                <td>[[ l_ZeroPadding(i[0]) ]]</td>
+                <td v-show="isShow">[[ i[1] ]]</td>
+                <td>[[ i[2] ]]</td>
+                <td>[[ i[3] ]]</td>
+                <td>
+                    <pre>【[[ i[5] ]]】[[ i[4] ]]</pre>
+                </td>
+                <td>[[ i[6] ]]</td>
+                <td>[[ i[7] ]]</td>
+                <td v-show="TODO_DETAIL_FORM"><button @click="l_axios_GET_UPDATE( i[0] )">[[ button_names[1] ]]</button>
+                </td>
+                <td v-show="TODO_DETAIL_FORM"><button @click="l_axios_POST_DEL( i[0] )">[[ button_names[2] ]]</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

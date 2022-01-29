@@ -1,0 +1,11 @@
+{% load static %}
+<section>
+    <nav class="search_nav">
+        <ul>
+            <li>
+                ▼作業：<input type="text" v-bind:maxlength="len_search_key" v-bind:placeholder="mes_placeholder"
+                    v-model="key_TODO_HEADER_NAME" @change="change_key_TODO_HEADER_NAME">
+            </li>
+        </ul>
+    </nav>
+</section>

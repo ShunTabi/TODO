@@ -1,0 +1,8 @@
+{% load static %}
+<script type="text/x-template" id="GENRE_">
+    <section>
+        <h2>[[ Lancher_header ]]</h2>
+        <div v-show="GENRE_FORM">{% include 'BODY\MAIN\GENRE\GENRE_FORM.html' %}</div>
+        <div v-show="GENRE_TOP">{% include 'BODY\MAIN\GENRE\GENRE_TOP.html' %}</div>
+    </section>
+</script>

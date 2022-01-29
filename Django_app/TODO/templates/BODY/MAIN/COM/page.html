@@ -1,0 +1,14 @@
+{% load static %}
+<nav class="page_nav">
+    <ul>
+        <li>
+            <img v-show="page != 1" src="{% static 'icon\arrow-left-circle.svg' %}" width="25" height="25"
+                @click="pre_page" />
+        </li>
+        <li>[[ page ]] / [[ max_page ]]</li>
+        <li>
+            <img v-show="page != max_page" src="{% static 'icon\arrow-right-circle.svg' %}" width="25" height="25"
+                @click="next_page" />
+        </li>
+    </ul>
+</nav>

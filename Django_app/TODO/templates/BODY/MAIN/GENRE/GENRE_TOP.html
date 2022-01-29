@@ -1,0 +1,24 @@
+{% load static %}
+<section>
+    <div>{% include 'BODY\MAIN\COM\page.html' %}</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>種別名</th>
+                <th>日付</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in values">
+                <td>[[ l_ZeroPadding(i[0]) ]]</td>
+                <td>[[ i[1] ]]</td>
+                <td>[[ i[2] ]]</td>
+                <td v-show="GENRE_FORM"><button @click="l_axios_GET_UPDATE( i[0] )">[[ button_names[1] ]]</button></td>
+                <td v-show="GENRE_FORM"><button @click="l_axios_POST_DEL( i[0] )">[[ button_names[2] ]]</button></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

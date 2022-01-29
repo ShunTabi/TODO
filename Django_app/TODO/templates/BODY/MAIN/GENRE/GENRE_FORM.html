@@ -1,0 +1,21 @@
+{% load static %}
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>項目</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>種別名</td>
+                <td><input type="text" v-model="GENRE_NAME"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button @click="l_axios_POST()">[[ button_name ]]</button></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

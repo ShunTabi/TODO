@@ -1,0 +1,8 @@
+{% load static %}
+<script type="text/x-template" id="MEMO_">
+    <section>
+        <h2>[[ Lancher_header ]]</h2>
+        <div v-show="MEMO_FORM">{% include 'BODY\MAIN\MEMO\MEMO_FORM.html' %}</div>
+        <div v-show="MEMO_TOP">{% include 'BODY\MAIN\MEMO\MEMO_TOP.html' %}</div>
+    </section>
+</script>
