@@ -14,9 +14,9 @@ const default_url = "http://192.168.10.100:8080/",
     Lancher_detail = [
         [
             //目標
-            [Lancher_header[0] + Lancher_detail_name[2], "/GOAL_/2/1"],
-            [Lancher_header[0] + Lancher_detail_name[0], "/GOAL_/0/1"],
-            [Lancher_header[0] + Lancher_detail_name[1], "/GOAL_/1/1"],
+            [Lancher_header[0] + Lancher_detail_name[2], "/GOAL_/2/1"],//全体
+            [Lancher_header[0] + Lancher_detail_name[0], "/GOAL_/0/1"],//一覧
+            [Lancher_header[0] + Lancher_detail_name[1], "/GOAL_/1/1"],//フォーム
         ],
         [
             //作業
@@ -43,7 +43,7 @@ const default_url = "http://192.168.10.100:8080/",
             [Lancher_header[4] + Lancher_detail_name[1], "/GENRE_/1/1"],
         ],
     ],
-    start_url = `${default_url}TODO/#${Lancher_detail[2][2]}`;
+    start_url = `${default_url}TODO/#${Lancher_detail[2][1][1]}`;
 
 export {
     default_url,
