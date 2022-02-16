@@ -72,6 +72,9 @@ const TODO_HEADER_ = {
                 });
             },
             change_key_TODO_HEADER_NAME: function () {
+                if (this.key_TODO_HEADER_NAME == "") {
+                    this.key_TODO_HEADER_NAME = par_null;
+                };
                 this.$router.push(`/TODO_HEADER_/${this.$route.params.par}/1/${this.key_TODO_HEADER_NAME}`);
             },
             next_page: function () {

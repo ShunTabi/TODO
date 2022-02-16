@@ -87,6 +87,9 @@ const TODO_DETAIL_ = {
                 });
             },
             change_key_TODO: function () {
+                if (this.key_TODO == "") {
+                    this.key_TODO = par_null;
+                };
                 this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/1/${this.key_TODO}/${this.$route.params.key_STATUS_ID}`);
             },
             change_key_STATUS_ID: function () {
@@ -99,8 +102,9 @@ const TODO_DETAIL_ = {
                 this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key_TODO}/${this.$route.params.key_STATUS_ID}`);
             },
             clearForm: function () {
-                this.TODO_DETAIL_ID = null;
+                this.GOAL_ID = null;
                 this.TODO_HEADER_ID = null;
+                this.TODO_DETAIL_ID = null;
                 this.STATUS_ID = null;
                 this.TODO_DETAIL_NAME = null;
                 const params = new URLSearchParams();
@@ -116,7 +120,7 @@ const TODO_DETAIL_ = {
                 params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("STATUS_ID", this.STATUS_ID);
                 params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
-                params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_ENDDATE);
+                params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
                 if (this.TODO_DETAIL_ID != null) {
                     params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
