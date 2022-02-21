@@ -3,11 +3,11 @@
 import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, } from './conf.js';
 //コンポーネント
-const GENRE_ = {
-    path: "/GENRE_/:par/:page",
-    name: "GENRE_",
+const GENRE = {
+    path: "/GENRE/:par/:page",
+    name: "GENRE",
     component: {
-        template: "#GENRE_",
+        template: "#GENRE",
         delimiters: ["[[", "]]"],
         data: function () {
             return {
@@ -47,10 +47,10 @@ const GENRE_ = {
                 });
             },
             next_page: function () {
-                this.$router.push(`/GENRE_/${this.$route.params.par}/${(Number(this.page) + 1)}`);
+                this.$router.push(`/GENRE/${this.$route.params.par}/${(Number(this.page) + 1)}`);
             },
             pre_page: function () {
-                this.$router.push(`/GENRE_/${this.$route.params.par}/${Number(this.page) - 1}`);
+                this.$router.push(`/GENRE/${this.$route.params.par}/${Number(this.page) - 1}`);
             },
             clearForm: function () {
                 this.GENRE_NAME = null;
@@ -108,4 +108,4 @@ const GENRE_ = {
         },
     }
 };
-export { GENRE_ }
+export { GENRE }

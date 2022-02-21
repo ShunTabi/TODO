@@ -3,11 +3,11 @@
 import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, par_null, len_search_key, mes_placeholder, } from './conf.js';
 //コンポーネント
-const MEMO_ = {
-    path: "/MEMO_/:par/:page/:key_MEMO",
-    name: "MEMO_",
+const MEMO = {
+    path: "/MEMO/:par/:page/:key_MEMO",
+    name: "MEMO",
     component: {
-        template: "#MEMO_",
+        template: "#MEMO",
         delimiters: ["[[", "]]"],
         data: function () {
             return {
@@ -80,13 +80,13 @@ const MEMO_ = {
                 });
             },
             change_key_MEMO: function () {
-                this.$router.push(`/MEMO_/${this.$route.params.par}/1/${this.key_MEMO}`);
+                this.$router.push(`/MEMO/${this.$route.params.par}/1/${this.key_MEMO}`);
             },
             next_page: function () {
-                this.$router.push(`/MEMO_/${this.$route.params.par}/${(Number(this.page) + 1)}/${this.$route.params.key_MEMO}`);
+                this.$router.push(`/MEMO/${this.$route.params.par}/${(Number(this.page) + 1)}/${this.$route.params.key_MEMO}`);
             },
             pre_page: function () {
-                this.$router.push(`/MEMO_/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key_MEMO}`);
+                this.$router.push(`/MEMO/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key_MEMO}`);
             },
             clearForm: function () {
                 this.MEMO_ID = null;
@@ -152,4 +152,4 @@ const MEMO_ = {
         },
     }
 };
-export { MEMO_ }
+export { MEMO }

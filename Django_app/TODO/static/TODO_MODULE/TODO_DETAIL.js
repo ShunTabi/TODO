@@ -1,13 +1,27 @@
 "use strict";
 //インポート
-import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
-import { Lancher_header, Lancher_detail, isShow, button_names, par_null, len_search_key, mes_placeholder, } from './conf.js';
+import {
+    axios_GET,
+    axios_POST,
+    ZeroPadding,
+    isShowTrue,
+    checkPage,
+} from './COM.js';
+import {
+    Lancher_header,
+    Lancher_detail,
+    isShow,
+    button_names,
+    par_null,
+    len_search_key,
+    mes_placeholder,
+} from './conf.js';
 //コンポーネント
-const TODO_DETAIL_ = {
-    path: "/TODO_DETAIL_/:par/:page/:key_TODO/:key_STATUS_ID",
-    name: "TODO_DETAIL_",
+const TODO_DETAIL = {
+    path: "/TODO_DETAIL/:par/:page/:key_TODO/:key_STATUS_ID",
+    name: "TODO_DETAIL",
     component: {
-        template: "#TODO_DETAIL_",
+        template: "#TODO_DETAIL",
         delimiters: ["[[", "]]"],
         data: function () {
             return {
@@ -87,20 +101,24 @@ const TODO_DETAIL_ = {
                 });
             },
             change_key_TODO: function () {
-                this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/1/${this.key_TODO}/${this.$route.params.key_STATUS_ID}`);
+                if (this.key_TODO == "") {
+                    this.key_TODO = par_null;
+                };
+                this.$router.push(`/TODO_DETAIL/${this.$route.params.par}/1/${this.key_TODO}/${this.$route.params.key_STATUS_ID}`);
             },
             change_key_STATUS_ID: function () {
-                this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/1/${this.$route.params.key_TODO}/${this.key_STATUS_ID}`);
+                this.$router.push(`/TODO_DETAIL/${this.$route.params.par}/1/${this.$route.params.key_TODO}/${this.key_STATUS_ID}`);
             },
             next_page: function () {
-                this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/${(Number(this.page) + 1)}/${this.$route.params.key_TODO}/${this.$route.params.key_STATUS_ID}`);
+                this.$router.push(`/TODO_DETAIL/${this.$route.params.par}/${(Number(this.page) + 1)}/${this.$route.params.key_TODO}/${this.$route.params.key_STATUS_ID}`);
             },
             pre_page: function () {
-                this.$router.push(`/TODO_DETAIL_/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key_TODO}/${this.$route.params.key_STATUS_ID}`);
+                this.$router.push(`/TODO_DETAIL/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key_TODO}/${this.$route.params.key_STATUS_ID}`);
             },
             clearForm: function () {
-                this.TODO_DETAIL_ID = null;
+                this.GOAL_ID = null;
                 this.TODO_HEADER_ID = null;
+                this.TODO_DETAIL_ID = null;
                 this.STATUS_ID = null;
                 this.TODO_DETAIL_NAME = null;
                 const params = new URLSearchParams();
@@ -116,7 +134,7 @@ const TODO_DETAIL_ = {
                 params.append("TODO_HEADER_ID", this.TODO_HEADER_ID);
                 params.append("STATUS_ID", this.STATUS_ID);
                 params.append("TODO_DETAIL_NAME", this.TODO_DETAIL_NAME);
-                params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_ENDDATE);
+                params.append("TODO_DETAIL_STARTDATE", this.TODO_DETAIL_STARTDATE);
                 params.append("TODO_DETAIL_ENDDATE", this.TODO_DETAIL_ENDDATE);
                 if (this.TODO_DETAIL_ID != null) {
                     params.append("TODO_DETAIL_ID", this.TODO_DETAIL_ID);
@@ -173,4 +191,4 @@ const TODO_DETAIL_ = {
         },
     }
 };
-export { TODO_DETAIL_ }
+export { TODO_DETAIL }

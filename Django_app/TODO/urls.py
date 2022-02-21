@@ -1,7 +1,7 @@
 import imp
 from django.contrib import admin
 from django.urls import path,include
-from .urls_component import urls_Django_works,urls_GENRE,urls_GOAL,urls_TODO_HEADER,urls_TODO_DETAIL,urls_MEMO
+from .urls_component import urls_Django_works,urls_GENRE,urls_GOAL,urls_TODO_HEADER,urls_TODO_DETAIL,urls_MEMO,urls_TODO_MANAGE
 
 urlpatterns = [
     #1.Django_works
@@ -32,4 +32,6 @@ urlpatterns = [
     urls_MEMO.MEMO_FORM,
     urls_MEMO.MEMO_UPDATE,
     urls_MEMO.MEMO_DEL,
+    #7.TODO_MANAGE
+    urls_TODO_MANAGE.TODO_MANAGE_TOP,
 ]

@@ -17,7 +17,7 @@ body {
 }
 .Lancher_SECTION .Lancher_SECTION_MAIN ul{
     list-style: none;
-    margin: 15px 0px 0px 0px;
+    margin: 0;
     padding: 0;
 }
 .Lancher_SECTION .Lancher_SECTION_MAIN ul ul{
@@ -73,4 +73,7 @@ pre {
 }
 .page_nav ul li img{
     cursor: pointer;
+}
+.manage_search_key{
+    width:90px;
 }

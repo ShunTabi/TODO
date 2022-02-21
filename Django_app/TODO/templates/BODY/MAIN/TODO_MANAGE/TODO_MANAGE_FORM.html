@@ -1,0 +1,37 @@
+{% load static %}
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>項目</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>目標名</td>
+                <td><select v-model="GOAL_ID">
+                        <option v-for="v in values_GOAL" v-bind:value="v[0]">[[ v[1] ]]</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>作業名</td>
+                <td><input type="text" v-model="TODO_HEADER_NAME"></td>
+            </tr>
+            <tr>
+                <td>優先度</td>
+                <td><select v-model="PRIOR_ID">
+                        <option v-for="v in values_PRIOR" v-bind:value="v[0]">[[ v[1] ]]</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>期日</td>
+                <td><input type="text" v-model="TODO_HEADER_ENDDATE"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button @click="l_axios_POST()">[[ button_name ]]</button></td>
+            </tr>
+        </tbody>
+    </table>
+</section>

@@ -1,5 +1,5 @@
 "use strict";
-import { default_url, sec, len_charactor, len_integer, } from "./conf.js";
+import { default_url, sec, len_integer, len_DAYOFWEEK, } from "./conf.js";
 
 //GET通信
 const axios_GET = (url, params, callback) => {
@@ -71,4 +71,13 @@ const checkPage = (max_page) => {
     return max_page;
 }
 
-export { axios_GET, axios_POST, sendMessage, AppStartup, ZeroPadding, isShowTrue, checkPage, }
+const check_LEN = (tg, len) => {
+    const result = tg.substr(0, len);
+    return result;
+}
+
+const check_len_DAYOFWEEK = (tg) => {
+    return check_LEN(tg, len_DAYOFWEEK)
+}
+
+export { axios_GET, axios_POST, sendMessage, AppStartup, ZeroPadding, isShowTrue, checkPage, check_len_DAYOFWEEK, }

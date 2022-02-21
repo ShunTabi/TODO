@@ -52,7 +52,6 @@ def MEMO_FORM(req):
                 "values_GOAL":views_setting_SQL.SQL_SELECT(views_setting_SQLSTATEMENT.sql_29,sql_params_GOAL),
                 "values_TODO_HEADER":views_setting_SQL.SQL_SELECT(views_setting_SQLSTATEMENT.sql_39_1,sql_params_TODO_HEADER),
                 "values_TODO_DETAIL":views_setting_SQL.SQL_SELECT(views_setting_SQLSTATEMENT.sql_49_1,sql_params_TODO_DETAIL),
-                "values_nowtime":views_conf.nowtime,
             }
             return JsonResponse(params)
         elif(req.GET["GOAL_ID"] != 'null'):

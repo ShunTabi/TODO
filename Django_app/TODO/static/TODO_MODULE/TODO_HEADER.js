@@ -3,11 +3,11 @@
 import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, par_null, len_search_key, mes_placeholder, } from './conf.js';
 //コンポーネント
-const TODO_HEADER_ = {
-    path: "/TODO_HEADER_/:par/:page/:key",
-    name: "TODO_HEADER_",
+const TODO_HEADER = {
+    path: "/TODO_HEADER/:par/:page/:key",
+    name: "TODO_HEADER",
     component: {
-        template: "#TODO_HEADER_",
+        template: "#TODO_HEADER",
         delimiters: ["[[", "]]"],
         data: function () {
             return {
@@ -72,13 +72,16 @@ const TODO_HEADER_ = {
                 });
             },
             change_key_TODO_HEADER_NAME: function () {
-                this.$router.push(`/TODO_HEADER_/${this.$route.params.par}/1/${this.key_TODO_HEADER_NAME}`);
+                if (this.key_TODO_HEADER_NAME == "") {
+                    this.key_TODO_HEADER_NAME = par_null;
+                };
+                this.$router.push(`/TODO_HEADER/${this.$route.params.par}/1/${this.key_TODO_HEADER_NAME}`);
             },
             next_page: function () {
-                this.$router.push(`/TODO_HEADER_/${this.$route.params.par}/${(Number(this.page) + 1)}/${this.$route.params.key}`);
+                this.$router.push(`/TODO_HEADER/${this.$route.params.par}/${(Number(this.page) + 1)}/${this.$route.params.key}`);
             },
             pre_page: function () {
-                this.$router.push(`/TODO_HEADER_/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key}`);
+                this.$router.push(`/TODO_HEADER/${this.$route.params.par}/${Number(this.page) - 1}/${this.$route.params.key}`);
             },
             clearForm: function () {
                 this.TODO_HEADER_ID = null;
@@ -151,4 +154,4 @@ const TODO_HEADER_ = {
         },
     }
 };
-export { TODO_HEADER_ }
+export { TODO_HEADER }

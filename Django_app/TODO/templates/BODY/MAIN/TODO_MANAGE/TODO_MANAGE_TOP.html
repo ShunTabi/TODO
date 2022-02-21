@@ -1,0 +1,37 @@
+{% load static %}
+<section>
+    <div>{% include 'BODY\MAIN\TODO_MANAGE\TODO_MANAGE_SEARCH.html' %}</div>
+    <div>{% include 'BODY\MAIN\COM\page.html' %}</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>作業期日</th>
+                <th v-show="isShow">種別ID</th>
+                <th v-show="isShow">種別名</th>
+                <th v-show="isShow">目標ID</th>
+                <th>目標名</th>
+                <th v-show="isShow">作業ID</th>
+                <th>作業名</th>
+                <th>件数(対応中)</th>
+                <th>件数(未)</th>
+                <th>件数(済み)</th>
+                <th>件数(総数)/進捗率</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="i in values">
+                <td>[[ i[0] ]]</td>
+                <td v-show="isShow">[[ i[1] ]]</td>
+                <td v-show="isShow">[[ i[2] ]]</td>
+                <td v-show="isShow">[[ i[3] ]]</td>
+                <td>[[ i[4] ]]</td>
+                <td v-show="isShow">[[ i[5] ]]</td>
+                <td>[[ i[6] ]]</td>
+                <td>[[ i[7] ]]</td>
+                <td>[[ i[8] ]]</td>
+                <td>[[ i[9] ]]</td>
+                <td>[[ i[10] ]]【[[ i[11] ]]%】</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,17 @@
+{% load static %}
+<section>
+    <nav class="search_nav">
+        <ul>
+            <li>
+                ▼期間：
+                <input type="text" class="manage_search_key" v-model="search_key_startdate" @change="change_key_date">
+                ～
+                <input type="text" class="manage_search_key" v-model="search_key_enddate" @change="change_key_date">
+            </li>
+            <li>
+                ▼目標名/作業名：<input type="text" v-bind:maxlength="len_search_key" v-bind:placeholder="mes_placeholder"
+                    v-model="key_TODO" @change="change_key_TODO">
+            </li>
+        </ul>
+    </nav>
+</section>

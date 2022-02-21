@@ -3,11 +3,11 @@
 import { axios_GET, axios_POST, ZeroPadding, isShowTrue, checkPage, } from './COM.js';
 import { Lancher_header, Lancher_detail, isShow, button_names, } from './conf.js';
 //コンポーネント
-const GOAL_ = {
-    path: "/GOAL_/:par/:page",
-    name: "GOAL_",
+const GOAL = {
+    path: "/GOAL/:par/:page",
+    name: "GOAL",
     component: {
-        template: "#GOAL_",
+        template: "#GOAL",
         delimiters: ["[[", "]]"],
         data: function () {
             return {
@@ -56,10 +56,10 @@ const GOAL_ = {
                 });
             },
             next_page: function () {
-                this.$router.push(`/GOAL_/${this.$route.params.par}/${(Number(this.page) + 1)}`);
+                this.$router.push(`/GOAL/${this.$route.params.par}/${(Number(this.page) + 1)}`);
             },
             pre_page: function () {
-                this.$router.push(`/GOAL_/${this.$route.params.par}/${Number(this.page) - 1}`);
+                this.$router.push(`/GOAL/${this.$route.params.par}/${Number(this.page) - 1}`);
             },
             clearForm: function () {
                 this.GOAL_ID = null;
@@ -121,4 +121,4 @@ const GOAL_ = {
 
     }
 };
-export { GOAL_ }
+export { GOAL }
